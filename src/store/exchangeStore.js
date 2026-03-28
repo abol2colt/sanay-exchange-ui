@@ -1,9 +1,25 @@
 export const exchangeStore = {
   state: {
     coins: {},
+    searchQuery: "",
     isLoaded: false,
     lastUpdate: null,
     activeProvider: "None",
+  },
+
+  setSearchQuery(query) {
+    this.state.searchQuery = query.toLowerCase();
+  },
+
+  getFilteredCoins() {
+    const allCoins = Object.values(this.state.coins);
+    if (!this.state.searchQuery) return allCoins;
+
+    return allCoins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(this.state.searchQuery) ||
+        coin.symbol.toLowerCase().includes(this.state.searchQuery),
+    );
   },
 
   setCoins(coinsData) {
