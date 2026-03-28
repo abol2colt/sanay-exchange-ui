@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <script type="importmap">
+      {
+        "imports": {
+          "centrifuge": "./node_modules/centrifuge/dist/centrifuge.js"
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <link href="./dist/output.css" rel="stylesheet" />
+    <title>صرافی کریپتو</title>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <header class="p-4 border-b border-gray-800">
+      <h1 class="text-xl font-bold">Crypto Exchange</h1>
+    </header>
+
+    <div class="p-4">
+      <input
+        id="search"
+        placeholder="Search coin..."
+        class="w-full p-3 bg-gray-800 rounded"
+      />
+    </div>
+
+<div id="coin-container" class="flex flex-col w-full max-w-4xl mx-auto space-y-2 p-4"></div>
+      
+    </div>
+    <script type="module" src="./src/utils/app.js"></script>
+  </body>
+</html>
