@@ -1,12 +1,12 @@
-import { exchangeStore } from "../../store/exchangeStore.js";
 import { CoinRow } from "./CoinRow.js";
 
-export const renderCoinList = () => {
-  const coins = Object.values(exchangeStore.state.coins);
-  return coins
+export const renderCoinList = (coins = []) =>
+  coins
     .map((coin) => {
-      if (!coin.name) console.warn("هشدار: این کوین اسم ندارد!", coin);
+      if (!coin?.name && !coin?.symbol) {
+        console.warn("هشدار: داده‌ی کوین ناقص است.", coin);
+      }
+
       return CoinRow(coin);
     })
     .join("");
-};

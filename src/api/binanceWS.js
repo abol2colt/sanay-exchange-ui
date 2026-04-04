@@ -1,6 +1,5 @@
 import { exchangeStore } from "../store/exchangeStore.js";
 export const startPriceWebsocket = (symbols) => {
-  //(example = btcusdt/ethusdt)
   const streams = symbols.map((s) => `${s.toLowerCase()}usdt@ticker`).join("/");
 
   const url = `wss://data-stream.binance.vision/stream?streams=${streams}`;
