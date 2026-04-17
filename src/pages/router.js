@@ -1,8 +1,10 @@
 import { mountMarketPage } from "./market/MarketPage.js";
 import { mountWatchlistPage } from "./watchlist/WatchlistPage.js";
 import { mountAssetPage } from "./asset/AssetPage.js";
+import { mountLoginPage } from "./login/LoginPage.js";
+import { mountHomePage } from "./home/HomePage.js";
 
-const DEFAULT_ROUTE = "#market";
+const DEFAULT_ROUTE = "#home";
 const ASSET_ROUTE_PREFIX = "#asset/";
 
 const normalizeHash = (hash = window.location.hash) =>
@@ -15,7 +17,21 @@ export const getCurrentRoute = () => {
 
   if (!hash || hash === "#") {
     return {
-      page: "market",
+      page: "home",
+      symbol: null,
+    };
+  }
+
+  if (hash === "#home") {
+    return {
+      page: "home",
+      symbol: null,
+    };
+  }
+
+  if (hash === "#login") {
+    return {
+      page: "login",
       symbol: null,
     };
   }
@@ -83,6 +99,14 @@ export const renderCurrentPage = () => {
   switch (route.page) {
     case "market":
       mountMarketPage();
+      break;
+
+    case "home":
+      mountHomePage();
+      break;
+
+    case "login":
+      mountLoginPage();
       break;
 
     case "watchlist":

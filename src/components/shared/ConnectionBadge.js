@@ -77,8 +77,10 @@ export const renderConnectionBadge = () => {
   `;
 };
 
-export const refreshConnectionBadge = () => {
-  const $badge = $("#navbar-connection-badge");
+export const refreshConnectionBadge = (
+  selector = "#market-connection-badge",
+) => {
+  const $badge = $(selector);
 
   if (!$badge.length) {
     return;

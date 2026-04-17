@@ -12,7 +12,7 @@ const applyConnectionStatus = (status, { syncActiveProvider = false } = {}) => {
   if (syncActiveProvider) {
     exchangeStore.setActiveProvider(status.provider);
   }
-  refreshConnectionBadge();
+  refreshConnectionBadge("#market-connection-badge");
 };
 
 export const setEmptySymbolsState = () => {

@@ -1,6 +1,7 @@
 # SANAY — Master TODO & Delivery Roadmap
 
 ## Status Legend
+
 - [x] Done
 - [-] Partial
 - [ ] Pending
@@ -11,6 +12,7 @@
 ## Project Vision
 
 ### Build a premium exchange-like product shell called **Sanay**
+
 - [ ] Build a complete crypto exchange experience except real trading execution
   - هدف این پروژه ساخت یک تجربه کامل و حرفه‌ای شبیه صرافی واقعی است، اما بدون اتصال به موتور واقعی معامله.
 - [ ] Keep real-time market feeling, professional UI, account flows, charting, watchlist, and asset pages
@@ -23,6 +25,7 @@
 ## Phase 0 — Timeline of What Has Already Been Built
 
 ### Application bootstrap and layout foundation
+
 - [x] Create `app.js` bootstrap flow
   - بوت‌استرپ اصلی برنامه ساخته شده و theme، shell، route و data load را راه می‌اندازد.
 - [x] Create `MainLayout.js` shell
@@ -31,6 +34,7 @@
   - تم روشن و تیره با `themeManager` و localStorage مدیریت می‌شود.
 
 ### Routing and page switching
+
 - [x] Create router with hash-based navigation
   - مسیرها با hash router ساخته شده‌اند.
 - [x] Add route fallback to default page
@@ -39,6 +43,7 @@
   - مسیر داینامیک برای صفحه هر ارز پیاده شده است.
 
 ### Market data and initial state
+
 - [x] Add mock top coins loader
   - داده اولیه بازار از mockCoins بارگذاری می‌شود.
 - [x] Expand mock dataset to 10 assets
@@ -47,6 +52,7 @@
   - اگر history قبلی وجود داشته باشد، قیمت اولیه از آن hydrate می‌شود.
 
 ### Store and data ownership
+
 - [x] Create central `exchangeStore`
   - استور مرکزی پروژه ساخته شده و source of truth اصلی است.
 - [x] Add safe coin cloning in `setCoins()`
@@ -59,6 +65,7 @@
   - history قیمت‌ها در localStorage ذخیره و بازیابی می‌شود.
 
 ### Page layer
+
 - [x] Create `MarketPage.js`
   - صفحه مارکت ساخته شده است.
 - [x] Create `WatchlistPage.js`
@@ -67,6 +74,7 @@
   - صفحه جزئیات ارز ساخته شده است.
 
 ### Modal layer
+
 - [x] Rename and stabilize `TradingModal.js`
   - مودال معامله نام‌گذاری و ساختار بهتری گرفته است.
 - [x] Split modal rendering, helpers, and history rendering
@@ -75,6 +83,7 @@
   - دکمه معامله در صفحه دارایی مودال را باز می‌کند.
 
 ### Connection and fallback system
+
 - [x] Move `connectionManager.js` into services
   - منیجر اتصال به لایه services منتقل شده است.
 - [x] Move `fakePriceEngine.js` into services
@@ -93,6 +102,7 @@
   - cleanup اتصال زنده برای restart و unload اضافه شده است.
 
 ### UI quality baseline
+
 - [x] Add dedicated empty state component for market/watchlist
   - empty state reusable ساخته شده است.
 - [x] Extract coin badge colors into config
@@ -109,6 +119,7 @@
 ## Phase 1 — Core Stability and Architecture Hardening
 
 ### Store encapsulation
+
 - [x] Add `getSearchQuery()`
   - خواندن search query از مسیر getter انجام می‌شود.
 - [x] Add `getCoinSnapshot()`
@@ -125,6 +136,7 @@
   - واچ‌لیست هم روی snapshot ساخته می‌شود.
 
 ### Read path cleanup
+
 - [x] Replace direct search query state access in MarketPage
   - مارکت‌پیج دیگر مستقیم به `state.searchQuery` دست نمی‌زند.
 - [x] Use getters for provider and last update in AssetPage
@@ -135,6 +147,7 @@
   - فیک‌انجین دیگر coins را مستقیم از state خام نمی‌گیرد.
 
 ### Live connection safety
+
 - [x] Add `stopLiveConnection()` in `connectionManager`
   - stop مرکزی برای interval / socket / client اضافه شده است.
 - [x] Stop previous live source before starting a new one
@@ -143,6 +156,7 @@
   - هنگام خروج از صفحه cleanup انجام می‌شود.
 
 ### Remaining cleanup in this phase
+
 - [ ] Decide whether `activeProvider` should remain separate from `connectionStatus.provider`
   - باید تصمیم بگیریم provider اصلی از کجا خوانده شود تا duplication state کمتر شود.
 - [ ] Add tests or debug assertions for snapshot-based read paths
@@ -153,6 +167,7 @@
 ## Phase 2 — Component Structure and Reusability
 
 ### Shared UI building blocks
+
 - [x] Create reusable `ConnectionBadge` component
   - badge اتصال کامپوننت مشترک شده است.
 - [-] Create reusable stat card pattern
@@ -167,6 +182,7 @@
   - wrapper مشترک برای glass / dark panels باید تعریف شود.
 
 ### DOM and selectors discipline
+
 - [x] Create `APP_SELECTORS` constants module
   - بخشی از selectorهای سراسری جدا شده‌اند.
 - [-] Expand selector constants beyond app shell and modal basics
@@ -175,6 +191,7 @@
   - selectorهای خام هنوز در چند فایل زیاد هستند.
 
 ### Rendering purity
+
 - [-] Keep page render functions pure where possible
   - بخش زیادی pure شده ولی event binding هنوز بعضی جاها کنار render است.
 - [ ] Separate DOM mounting from render string generation consistently
@@ -187,6 +204,7 @@
 ## Phase 3 — Pages, Routes, and Product Navigation
 
 ### Current routes
+
 - [x] `#market`
   - صفحه مارکت فعال است.
 - [x] `#watchlist`
@@ -195,16 +213,18 @@
   - صفحه دارایی برای هر نماد فعال است.
 
 ### Next routes to add
-- [ ] Add `#home` as the new default route
+
+- [x] Add `#home` as the new default route
   - صفحه اصلی جدید باید route پیش‌فرض شود.
-- [ ] Add `#login` route
+- [x] Add `#login` route
   - صفحه لاگین باید به router اضافه شود.
 - [ ] Update route fallback to point to `#home`
   - بعد از ساخت Home، fallback باید به home برود نه market.
-- [ ] Update navbar links to `Home / Market / Watchlist / Login`
+- [x] Update navbar links to `Home / Market / Watchlist / Login`
   - نوبار نهایی باید با ساختار جدید هماهنگ شود.
 
 ### Navigation quality
+
 - [ ] Add active-nav visual state for current route
   - لینک فعال در نوبار باید مشخص باشد.
 - [ ] Keep asset route hidden from navbar direct use unless needed
@@ -212,11 +232,26 @@
 - [ ] Preserve route transitions cleanly when switching between product sections
   - جابه‌جایی بین routeها باید نرم و predictable بماند.
 
+### Build Page Structure
+
+- [x] Add `#home` route and mount `HomePage`
+- [x] Add `#login` route and mount `LoginPage`
+- [x] Change default route from `#market` to `#home`
+
 ---
 
 ## Phase 3.5 — Sanay Home / Landing Experience
 
+### Product Shell & Core UX
+
+- [x] Remove global connection badge from `MainLayout`
+- [x] Add local connection badge to `MarketPage`
+- [x] Create home page shell with 3 sections
+- [x] Add home market preview shell
+- [x] Add clickable preview coins linking to asset route
+
 ### Product direction from reference video
+
 - [ ] Build **Sanay** as a premium dark landing experience
   - ظاهر خانه باید شبیه محصول premium و سینمایی باشد.
 - [ ] Use a 3-section home structure
@@ -227,6 +262,7 @@
   - اسکرول باید حرفه‌ای و نرم باشد، نه آزاردهنده.
 
 ### Section 1 — Hero
+
 - [ ] Create a cinematic hero section for Sanay
   - سکشن اول باید hero اصلی محصول باشد.
 - [ ] Add brand lockup for **Sanay**
@@ -251,6 +287,7 @@
   - در اسکرول، hero باید کنترل‌شده و سینمایی رفتار کند.
 
 ### Section 2 — Features / Security / Trust
+
 - [ ] Create a section focused on security, privacy, and reliability
   - سکشن دوم باید حس اعتماد محصول را بسازد.
 - [ ] Add 4 premium feature cards
@@ -265,6 +302,7 @@
   - طراحی این سکشن باید با hero یکپارچه باشد.
 
 ### Section 3 — Market Trends / Table / CTA
+
 - [ ] Create a compact market showcase section
   - سکشن سوم باید vitrine بازار باشد، نه جایگزین market page.
 - [ ] Show 4 selected coins only
@@ -279,6 +317,7 @@
   - ورود سکشن سوم هم باید انیمیشن نرم و تمیز داشته باشد.
 
 ### Home shell decisions
+
 - [ ] Make `#home` the default first-time experience
   - تجربه اولیه کاربر باید از هوم شروع شود.
 - [ ] Keep full market table in `#market` only
@@ -293,6 +332,7 @@
 ## Phase 4 — Market, Watchlist, and Asset Experience Polish
 
 ### Market page polish
+
 - [ ] Add loading state / skeleton for market list
   - مارکت باید قبل از آماده‌شدن داده skeleton یا loading state داشته باشد.
 - [ ] Add clear-search action
@@ -309,6 +349,7 @@
   - UI مارکت باید در نهایت با هوم جدید یکپارچه شود.
 
 ### Watchlist polish
+
 - [x] Add empty watchlist state
   - حالت خالی واچ‌لیست پیاده شده است.
 - [ ] Add watchlist-specific actions or sorting
@@ -319,6 +360,7 @@
   - نمایش تعداد موارد واچ‌لیست می‌تواند UX را بهتر کند.
 
 ### Asset page polish
+
 - [x] Show provider, price, change, history, CTA, and description
   - صفحه دارایی اطلاعات اصلی را نشان می‌دهد.
 - [ ] Make provider chip visually aligned with global design system
@@ -331,6 +373,7 @@
   - placeholder فعلی باید به زبان طراحی نهایی نزدیک‌تر شود.
 
 ### Shared badge and status system
+
 - [x] Build reusable connection badge
   - badge مشترک ساخته شده است.
 - [x] Refresh badge on connection transitions
@@ -341,6 +384,7 @@
   - برای حالت degraded یک message inline در market هم مفید است.
 
 ### Visual consistency
+
 - [ ] Choose final premium Persian font for Sanay
   - باید فونت نهایی برند انتخاب شود.
 - [ ] Apply consistent spacing tokens and radius scale
@@ -355,12 +399,14 @@
 ## Phase 5 — Authentication and Session UX
 
 ### Route and shell
+
 - [ ] Add `#login` page
   - صفحه لاگین/ثبت‌نام باید اضافه شود.
 - [ ] Decide whether login is a standalone page or split panel layout
   - باید فرم لاگین از نظر layout نهایی شود.
 
 ### Sign up first flow
+
 - [ ] Make sign-up the default first tab
   - اولویت UI با ثبت‌نام باشد.
 - [ ] Add sign-up form fields
@@ -371,6 +417,7 @@
   - کاربر ثبت‌نام‌شده فعلاً در localStorage ذخیره شود.
 
 ### Login flow
+
 - [ ] Add login form fields
   - فرم لاگین شامل نام کاربری یا ایمیل و رمز عبور باشد.
 - [ ] Validate login against localStorage users
@@ -387,6 +434,7 @@
   - خروج از حساب کاربری هم لازم است.
 
 ### Auth UX polish
+
 - [ ] Add password visibility toggle
   - نمایش/مخفی‌کردن رمز عبور لازم است.
 - [ ] Add inline validation and error messaging
@@ -399,6 +447,7 @@
 ## Phase 6 — Exchange-like Data Experience (Without Real Trading)
 
 ### Chart system
+
 - [ ] Build internal chart data model from local price history
   - باید از history داخلی برای ساخت نمودار استفاده کنیم.
 - [ ] Decide chart library or custom SVG/canvas strategy
@@ -413,6 +462,7 @@
   - نمودار باید تعامل پایه داشته باشد.
 
 ### Exchange-like modules
+
 - [ ] Add portfolio summary mock module
   - یک خلاصه دارایی mock برای حس صرافی واقعی لازم است.
 - [ ] Add holdings / balances mock data layer
@@ -425,6 +475,7 @@
   - شل نوتیفیکیشن یا alertها هم باید در roadmap باشد.
 
 ### Trading scope rule
+
 - [ ] Keep trade execution UI-only
   - UI معامله وجود دارد ولی اجرای واقعی سفارش انجام نمی‌شود.
 - [ ] Do not connect order submission to a real backend
@@ -437,6 +488,7 @@
 ## Phase 7 — Clean Code, Modularization, and Senior-Level Refactor
 
 ### Naming consistency
+
 - [ ] Standardize naming around `render*`, `mount*`, `refresh*`, `update*`
   - naming فانکشن‌ها باید در کل پروژه یک الگوی ثابت داشته باشد.
 - [ ] Rename misleading APIs like `fetchTopCoins` if they are still mock-only
@@ -445,6 +497,7 @@
   - متن‌های UI باید از نظر زبان و tone یک‌دست شوند.
 
 ### State and data contracts
+
 - [ ] Decide one source of truth for provider display
   - بین `activeProvider` و `connectionStatus.provider` باید source اصلی مشخص شود.
 - [ ] Document raw access vs snapshot access rule
@@ -455,6 +508,7 @@
   - باید درباره عمومی‌بودن `getCoin()` تصمیم آگاهانه بگیریم.
 
 ### DOM strategy
+
 - [ ] Reduce direct `document.getElementById` calls where a component refresh can replace them
   - باید تصمیم بگیریم کجا imperative DOM مجاز است و کجا rerender بهتر است.
 - [ ] Reduce repeated selector strings
@@ -463,6 +517,7 @@
   - استفاده از DOM APIs باید rule مشخص داشته باشد.
 
 ### Files and module boundaries
+
 - [ ] Keep APIs responsible only for transport and parsing
   - فایل‌های API فقط باید transport و parse را بشناسند.
 - [ ] Keep services responsible for orchestration and lifecycle
@@ -475,6 +530,7 @@
   - pageها باید composition و wiring سطح صفحه را نگه دارند.
 
 ### Documentation tasks
+
 - [ ] Document render flow from store to UI
   - مسیر رندر از استور تا UI باید مستند شود.
 - [ ] Document live update flow from websocket/fake engine to DOM
@@ -491,6 +547,7 @@
   - یک بخش رسمی برای معماری پروژه لازم است.
 
 ### Comment policy
+
 - [ ] Remove temporary or noisy comments
   - کامنت‌های موقتی و شلوغ باید پاک شوند.
 - [ ] Keep comments only for non-obvious logic
@@ -503,6 +560,7 @@
 ## Library Decisions
 
 ### Animation and scroll stack
+
 - [ ] Use Tailwind as the primary styling system
   - Tailwind پایه اصلی استایل سیستم باقی می‌ماند.
 - [ ] Use GSAP + ScrollTrigger for the home scroll orchestration
@@ -515,6 +573,7 @@
   - Spline فعلاً اختیاری و فقط برای ارتقای hero در آینده باشد.
 
 ### Chart stack
+
 - [ ] Decide between custom SVG lines and a lightweight chart library
   - برای نمودار باید تصمیم فنی نهایی گرفته شود.
 - [ ] Prefer a solution that matches Sanay design language and remains maintainable
@@ -525,6 +584,7 @@
 ## Quality Gates Before Marking the Project "Complete"
 
 ### Product completeness
+
 - [ ] Home is polished and visually aligned with the reference direction
   - هوم باید به کیفیت بصری مرجع نزدیک شود.
 - [ ] Market page feels consistent with Home and Asset page
@@ -535,6 +595,7 @@
   - تجربه لاگین و ثبت‌نام باید کامل و polished باشد.
 
 ### Technical completeness
+
 - [ ] No raw state leaks in UI read paths without explicit intent
   - مسیرهای read نباید به‌صورت ناخواسته state خام بگیرند.
 - [ ] No duplicate connection ownership or fallback ambiguity
@@ -549,6 +610,7 @@
 ## Senior Working Rules for Anyone Touching This Project
 
 ### 1. Respect the layering
+
 - Pages compose pages.
 - Components render UI.
 - Store owns state.
@@ -557,35 +619,42 @@
   - هر لایه باید فقط مسئولیت خودش را نگه دارد و وارد کار لایه دیگر نشود.
 
 ### 2. Never leak raw store state into read-heavy UI by accident
+
 - Prefer snapshot getters in render paths.
 - Use raw getters only with explicit intent.
   - در مسیرهای render و read از getterهای امن استفاده شود.
 
 ### 3. Keep live updates centralized
+
 - Real-time updates must flow through a shared handler.
 - Do not let every provider update the DOM separately.
   - آپدیت زنده باید از یک مسیر مرکزی عبور کند.
 
 ### 4. Separate transport from product behavior
+
 - Binance / Nobitex / Fake should emit events.
 - `connectionManager` should decide what to do next.
   - providerها فقط داده بدهند، تصمیم‌گیری با سرویس مرکزی باشد.
 
 ### 5. Build reusable UI intentionally
+
 - If the same visual block appears 2+ times, consider extracting it.
 - But do not extract too early without a clear pattern.
   - استخراج کامپوننت باید آگاهانه باشد، نه زودهنگام و بی‌هدف.
 
 ### 6. Keep Persian UI clean and premium
+
 - Use one consistent Persian voice.
 - Avoid random English labels unless they are product terms.
   - زبان رابط باید یک‌دست و باکلاس بماند.
 
 ### 7. Prefer composition over giant files
+
 - Split helpers, renderers, and state logic early when a file starts mixing concerns.
   - هر وقت فایل چند مسئولیت گرفت، باید شکسته شود.
 
 ### 8. Every new feature must answer these questions first
+
 - Which layer owns it?
 - Which file should render it?
 - Which file should store it?
@@ -594,12 +663,14 @@
   - قبل از کدنویسی باید مالکیت و مرز هر فیچر مشخص شود.
 
 ### 9. Animation must serve hierarchy, not noise
+
 - Hero animation should guide attention.
 - Scroll effects should support section storytelling.
 - Avoid flashy motion that reduces clarity.
   - انیمیشن باید به فهم محصول کمک کند، نه این‌که شلوغی بسازد.
 
 ### 10. Do not mark tasks done unless all of these are true
+
 - UI is present
 - Behavior works
 - Naming is clean
@@ -613,6 +684,7 @@
 ## Immediate Next Focus
 
 ### Recommended next build order
+
 1. Build the new `#home` route and page shell
    - اول هوم جدید را بساز.
 2. Implement Section 1 hero with premium dark layout and controlled scroll animation
@@ -627,4 +699,3 @@
    - بعد سراغ لاگین و ثبت‌نام برو.
 7. Return to market/asset polish to match the new Sanay visual system
    - بعد مارکت و asset را با طراحی جدید هماهنگ کن.
-
