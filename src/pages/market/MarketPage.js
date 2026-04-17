@@ -2,15 +2,22 @@ import $ from "jquery";
 import { exchangeStore } from "../../store/exchangeStore.js";
 import { renderCoinList } from "../../components/market/CoinList.js";
 import { renderMarketEmptyState } from "../../components/market/EmptyState.js";
+import { refreshConnectionBadge } from "../../components/shared/ConnectionBadge.js";
 
 const renderMarketHeader = () => {
   return `
     <section class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-      <div>
-        <h2 class="text-4xl font-black mb-2">بازار ارزها</h2>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">
-          قیمت‌های لحظه‌ای و جستجوی سریع بین ارزها
-        </p>
+      <div class="space-y-4">
+        <div>
+          <h2 class="text-4xl font-black mb-2">بازار ارزها</h2>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">
+            قیمت‌های لحظه‌ای و جستجوی سریع بین ارزها
+          </p>
+        </div>
+
+        <div id="market-connection-badge" class="inline-flex">
+          ${renderConnectionBadge()}
+        </div>
       </div>
 
       <div class="relative w-full md:w-96">
@@ -25,7 +32,6 @@ const renderMarketHeader = () => {
     </section>
   `;
 };
-
 const renderMarketResultsContent = () => {
   const coins = exchangeStore.getFilteredCoins();
 
