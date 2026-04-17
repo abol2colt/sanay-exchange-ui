@@ -10,14 +10,16 @@ import {
   stopLiveConnection,
 } from "./services/connectionManager.js";
 
-import { renderMainLayout } from "./layout/MainLayout.js";
+import {
+  renderMainLayout,
+  refreshMainNavigation,
+} from "./layout/MainLayout.js";
 import {
   getCurrentRoute,
   navigateToAsset,
   renderCurrentPage,
 } from "./pages/router.js";
 import { refreshMarketResults } from "./pages/market/MarketPage.js";
-
 
 const initApp = async () => {
   initTheme();
@@ -102,6 +104,7 @@ const setupAppEvents = () => {
     .off("hashchange.app")
     .on("hashchange.app", () => {
       renderCurrentPage();
+      refreshMainNavigation();
     });
   $(window)
     .off("beforeunload.appLive")
@@ -112,6 +115,7 @@ const setupAppEvents = () => {
 
 const bootstrapAppShell = () => {
   $(APP_SELECTORS.appRoot).html(renderMainLayout());
+  refreshMainNavigation();
 };
 
 const loadInitialMarketData = async () => {

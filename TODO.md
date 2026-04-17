@@ -178,7 +178,7 @@
   - دکمه‌های اصلی و فرعی هنوز shared نشده‌اند.
 - [ ] Create reusable tab or segmented control component
   - برای Home و Market و Login بعداً لازم می‌شود.
-- [ ] Create reusable surface/card wrappers for dark premium sections
+- [x] Create reusable surface/card wrappers for dark premium sections
   - wrapper مشترک برای glass / dark panels باید تعریف شود.
 
 ### DOM and selectors discipline
@@ -225,7 +225,7 @@
 
 ### Navigation quality
 
-- [ ] Add active-nav visual state for current route
+- [x] Add active-nav visual state for current route
   - لینک فعال در نوبار باید مشخص باشد.
 - [ ] Keep asset route hidden from navbar direct use unless needed
   - لینک مستقیم asset در نوبار احتمالاً بعداً باید حذف یا تغییر کند.
@@ -249,6 +249,12 @@
 - [x] Create home page shell with 3 sections
 - [x] Add home market preview shell
 - [x] Add clickable preview coins linking to asset route
+- [x] Split `HomePage` into section-level components
+- [x] Create `HomeHeroSection`, `HomeFeaturesSection`, and `HomeMarketPreviewSection`
+- [x] Move repeated home utility classes into `style.css`
+- [x] Add reusable home surface / section / CTA utility classes
+- [x] Add active navigation helper logic in `MainLayout`
+- [x] Refresh navigation active state on route change
 
 ### Product direction from reference video
 
