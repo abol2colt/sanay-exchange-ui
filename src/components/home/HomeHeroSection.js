@@ -23,7 +23,7 @@ export const renderHomeHeroSection = () => {
           <div class="flex flex-wrap gap-4 pt-4">
             <a
               href="#login"
-              class="home-cta-secondary""
+              class="home-cta-secondary"
             >
               Start Trading
             </a>
