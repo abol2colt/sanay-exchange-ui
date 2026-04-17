@@ -2,7 +2,7 @@ import $ from "jquery";
 import { exchangeStore } from "../../store/exchangeStore.js";
 import { renderCoinList } from "../../components/market/CoinList.js";
 import { renderMarketEmptyState } from "../../components/market/EmptyState.js";
-import { refreshConnectionBadge } from "../../components/shared/ConnectionBadge.js";
+import { renderConnectionBadge } from "../../components/shared/ConnectionBadge.js";
 
 const renderMarketHeader = () => {
   return `
