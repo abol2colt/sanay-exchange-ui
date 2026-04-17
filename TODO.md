@@ -255,6 +255,7 @@
 - [x] Add reusable home surface / section / CTA utility classes
 - [x] Add active navigation helper logic in `MainLayout`
 - [x] Refresh navigation active state on route change
+- [x] Fix local market badge render/import wiring
 
 ### Product direction from reference video
 
@@ -269,6 +270,12 @@
 
 ### Section 1 — Hero
 
+- [x] Split hero into content and visual components
+- [x] Create premium hero visual mock for Sanay
+- [x] Localize hero copy and CTA text for Persian UI
+- [x] Add reusable hero utility classes in style.css
+- [x] Add hero trust strip and metric cards
+- [x] Improve hero responsive visual behavior
 - [ ] Create a cinematic hero section for Sanay
   - سکشن اول باید hero اصلی محصول باشد.
 - [ ] Add brand lockup for **Sanay**
