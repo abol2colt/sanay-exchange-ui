@@ -1,12 +1,5 @@
 import * as CentrifugePkg from "centrifuge";
-import { exchangeStore } from "../store/exchangeStore.js";
-import { updateModalLive } from "../components/ui/TreadingModal.js";
-import {
-  normalizeSymbol,
-  setChangeElement,
-  setPriceElement,
-} from "../utils/priceHelpers.js";
-
+import { normalizeSymbol } from "../utils/priceHelpers.js";
 const NOBITEX_SOCKET_URL = "wss://ws.nobitex.ir/connection/websocket";
 
 const getCentrifugeClass = () =>
@@ -19,28 +12,19 @@ const parseTickerPayload = (payload = {}) => ({
   newPrice: Number.parseFloat(payload.latest ?? payload.last ?? 0),
   change24h: Number.parseFloat(payload.changePercent ?? payload.dayChange ?? 0),
 });
-// update ui
-const updateMarketRowUI = (symbol, newPrice, change24h) => {
-  setPriceElement(symbol, newPrice);
-  setChangeElement(symbol, change24h);
-};
+
 //symbol create subscription
-const subscribeToTicker = (client, symbol) => {
+const subscribeToTicker = (client, symbol, onTicker = () => {}) => {
   const coinKey = normalizeSymbol(symbol);
   const subscription = client.newSubscription(buildMarketChannel(coinKey));
-
+  //data destructure from object centrifuge
   subscription.on("publication", ({ data = {} }) => {
     const { newPrice, change24h } = parseTickerPayload(data);
 
     if (newPrice <= 0) {
       return;
     }
-    //update store(state)
-    exchangeStore.updateCoinPrice(coinKey, newPrice, change24h);
-    exchangeStore.addPriceHistory(coinKey, newPrice);
-    //ui sync
-    updateMarketRowUI(coinKey, newPrice, change24h);
-    updateModalLive(coinKey, newPrice);
+    onTicker({ symbol: coinKey, price: newPrice, change24h });
   });
 
   subscription.on("error", (context) => {
@@ -51,44 +35,63 @@ const subscribeToTicker = (client, symbol) => {
   return subscription;
 };
 //start ws
-export const startNobitexWS = (symbols = [], onFailure = () => {}) => {
+export const startNobitexWS = (
+  symbols = [],
+  onFailure = () => {},
+  onTicker = () => {},
+  onConnected = () => {},
+) => {
   const CentrifugeClass = getCentrifugeClass();
 
   if (!CentrifugeClass) {
     console.error("کتابخانه Centrifuge در دسترس نیست.");
-    onFailure();
+    onFailure("nobitex_missing_library");
     return null;
   }
 
   let hasConnectedOnce = false;
+  let hasFailedOver = false;
+  let client = null;
+
+  const failOnce = (context) => {
+    if (hasConnectedOnce || hasFailedOver) {
+      return;
+    }
+
+    hasFailedOver = true;
+    onFailure(context);
+
+    if (client && typeof client.disconnect === "function") {
+      client.disconnect();
+    }
+  };
 
   try {
-    const client = new CentrifugeClass(NOBITEX_SOCKET_URL);
-
+    client = new CentrifugeClass(NOBITEX_SOCKET_URL);
     client.on("connected", () => {
       hasConnectedOnce = true;
       console.log("✅ نوبیتکس متصل شد!");
-      exchangeStore.setActiveProvider("Nobitex");
+      onConnected();
     });
 
     client.on("disconnected", (context) => {
       console.warn("ارتباط نوبیتکس قطع شد.", context);
 
       if (!hasConnectedOnce) {
-        onFailure(context);
+        failOnce(context);
       }
     });
 
     client.on("error", (context) => {
-      console.error("Nobitex WS Error:", context);
+      console.error("ارور نوبیتکس :", context);
 
       if (!hasConnectedOnce) {
-        onFailure(context);
+        failOnce(context);
       }
     });
 
     symbols.forEach((symbol) => {
-      subscribeToTicker(client, symbol);
+      subscribeToTicker(client, symbol, onTicker);
     });
 
     client.connect();

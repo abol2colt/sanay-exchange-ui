@@ -1,31 +1,48 @@
-import { exchangeStore } from "../store/exchangeStore.js";
-export const startPriceWebsocket = (symbols) => {
-  const streams = symbols.map((s) => `${s.toLowerCase()}usdt@ticker`).join("/");
+import { normalizeSymbol } from "../utils/priceHelpers.js";
 
-  const url = `wss://data-stream.binance.vision/stream?streams=${streams}`;
-  const socket = new WebSocket(url);
+const buildBinanceStream = (symbols = []) =>
+  symbols.map((symbol) => `${normalizeSymbol(symbol)}usdt@ticker`).join("/");
 
-  socket.onopen = () => {
-    console.log("Binance WebSocket Connected");
+const buildBinanceSocketUrl = (symbols = []) =>
+  `wss://stream.binance.com:9443/stream?streams=${buildBinanceStream(symbols)}`;
+
+const parseBinanceMessage = (payload = {}) => {
+  const ticker = payload?.data || {};
+
+  return {
+    symbol: normalizeSymbol(ticker.s),
+    price: Number.parseFloat(ticker.c ?? 0), //current price
+    change24h: Number.parseFloat(ticker.P ?? 0), //percent change 24
   };
+};
 
-  socket.onmessage = (event) => {
-    const msg = JSON.parse(event.data);
-    const ticker = msg.data;
+//entry point
+export const startPriceWebsocket = (symbols = [], onTicker = () => {}) => {
+  if (!Array.isArray(symbols) || symbols.length === 0) {
+    console.warn("لیست symbol برای Binance خالی است.");
+    return null;
+  }
 
-    const rawSymbol = ticker.s.replace("USDT", "").toLowerCase();
-    const newPrice = parseFloat(ticker.c);
+  try {
+    const socket = new WebSocket(buildBinanceSocketUrl(symbols));
 
-    exchangeStore.updateCoinPrice(rawSymbol, newPrice);
-    updatePriceDOM(rawSymbol, newPrice);
-    console.log("price update", rawSymbol, newPrice);
-  };
-  const updatePriceDOM = (symbol, price) => {
-    const el = document.getElementById(`price-${symbol}`);
+    socket.onmessage = (event) => {
+      const payload = JSON.parse(event.data);
+      const { symbol, price, change24h } = parseBinanceMessage(payload);
 
-    if (!el) return;
+      if (!symbol || price <= 0) {
+        return;
+      }
+      onTicker({ symbol, price, change24h });
+    };
 
-    el.innerText = `$${price.toLocaleString()}`;
-  };
-  return socket;
+    socket.onerror = (error) => {
+      console.error("Binance message/socket error:", error);
+    };
+
+    return socket;
+  } catch (error) {
+    console.error("ساخت وب‌سوکت بایننس ناموفق بود.", error);
+    return null;
+  }
 };

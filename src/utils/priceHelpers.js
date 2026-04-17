@@ -3,13 +3,13 @@ const PRICE_DOWN_CLASSES = "text-red-600 dark:text-red-400";
 const PRICE_NEUTRAL_CLASSES = "text-gray-900 dark:text-white";
 const CHANGE_UP_CLASSES = "text-green-600 dark:text-green-400";
 const CHANGE_DOWN_CLASSES = "text-red-600 dark:text-red-400";
-
+//string=>"" array
 const PRICE_CLASS_POOL = [
   ...PRICE_UP_CLASSES.split(" "),
   ...PRICE_DOWN_CLASSES.split(" "),
   ...PRICE_NEUTRAL_CLASSES.split(" "),
 ];
-
+//all class price
 const CHANGE_CLASS_POOL = [
   ...CHANGE_UP_CLASSES.split(" "),
   ...CHANGE_DOWN_CLASSES.split(" "),
@@ -23,7 +23,7 @@ export const formatPrice = (value = 0) =>
     minimumFractionDigits: 0,
     maximumFractionDigits: 6,
   });
-
+//change 24
 export const formatPercentage = (value = 0) =>
   `${Math.abs(Number(value) || 0).toFixed(2)}%`;
 

@@ -1,56 +1,157 @@
 import $ from "jquery";
-import { fetchTopCoins } from "./api/mockCoins.js";
-import { exchangeStore } from "./store/exchangeStore.js";
-import { renderMarket } from "./components/market/MarketList.js";
-import { initTheme, setupThemeListener } from "./utils/themeManager.js";
-import { initializeLivePrices } from "./utils/connectionManager.js";
-import { openTradeModal } from "./components/ui/TreadingModal.js";
 import "./assets/css/style.css";
 
-const setupSearchListener = () => {
-  $("#search").on("input", ({ target }) => {
-    const query = $(target).val();
-    exchangeStore.setSearchQuery(query);
-    renderMarket();
-  });
-};
+import { initTheme, setupThemeListener } from "./utils/themeManager.js";
+import { exchangeStore } from "./store/exchangeStore.js";
+import { fetchTopCoins } from "./api/mockCoins.js";
+import { APP_SELECTORS } from "./constants/selectors.js";
+import {
+  initializeLivePrices,
+  stopLiveConnection,
+} from "./services/connectionManager.js";
 
-const setupCoinRowListener = () => {
-  //if update document
-  $(document).on("click", ".coin-row", ({ currentTarget }) => {
-    const symbol = $(currentTarget).attr("data-symbol");
-    const coinData = exchangeStore.getCoin(symbol);
+import { renderMainLayout } from "./layout/MainLayout.js";
+import {
+  getCurrentRoute,
+  navigateToAsset,
+  renderCurrentPage,
+} from "./pages/router.js";
+import { refreshMarketResults } from "./pages/market/MarketPage.js";
 
-    if (coinData) {
-      openTradeModal(coinData);
-    }
-  });
-};
-
-const setupModalCloseListener = () => {
-  $(document).on("click", "#close-modal, #modal-overlay", ({ target }) => {
-    if (target.id === "close-modal" || target.id === "modal-overlay") {
-      $("#modal-overlay").remove();
-    }
-  });
-};
-
-const setupEventListeners = () => {
-  setupThemeListener();
-  setupSearchListener();
-  setupCoinRowListener();
-  setupModalCloseListener();
-};
 
 const initApp = async () => {
   initTheme();
+  bootstrapAppShell();
+  setupAppEvents();
+  renderCurrentPage();
 
-  const coins = await fetchTopCoins();
-  exchangeStore.setCoins(coins);
-  renderMarket();
-  setupEventListeners();
+  const result = await loadInitialMarketData();
 
-  initializeLivePrices(exchangeStore.getCoinSymbols());
+  renderCurrentPage();
+
+  if (result.ok) {
+    startLiveLayer();
+  }
+};
+
+const setupSearchListener = () => {
+  //Template Literal
+  $(document)
+    .off("input.appSearch", APP_SELECTORS.marketSearch)
+    //                                                 Destructuring
+    .on("input.appSearch", APP_SELECTORS.marketSearch, ({ target }) => {
+      const query = String($(target).val() ?? ""); //btc => "btc"
+      exchangeStore.setSearchQuery(query);
+
+      const route = getCurrentRoute();
+
+      if (route.page === "market") {
+        refreshMarketResults();
+      }
+    });
+};
+
+const setupCoinRowNavigation = () => {
+  $(document)
+    .off("click.appCoinRow", ".coin-row")
+    .on("click.appCoinRow", ".coin-row", (event) => {
+      const $target = $(event.target);
+
+      const isSymbolDisabled = $target.closest(
+        '[data-prevent-row-click="true"]',
+      ).length;
+      if (isSymbolDisabled) {
+        return;
+      }
+
+      const symbol = String($(event.currentTarget).attr("data-symbol") || "");
+
+      if (!symbol) {
+        return;
+      }
+
+      navigateToAsset(symbol);
+    });
+};
+
+const setupWatchlistListener = () => {
+  $(document)
+    .off("click.appWatchlist", '[data-action="toggle-watchlist"]')
+    .on("click.appWatchlist", '[data-action="toggle-watchlist"]', (event) => {
+      event.preventDefault();
+      event.stopPropagation(); //click!=father event
+
+      const symbol = String($(event.currentTarget).attr("data-symbol") || "");
+
+      if (!symbol) {
+        return;
+      }
+
+      exchangeStore.toggleWatchlist(symbol);
+      renderCurrentPage();
+    });
+};
+
+const setupAppEvents = () => {
+  setupThemeListener();
+  setupSearchListener();
+  setupCoinRowNavigation();
+  setupWatchlistListener();
+
+  $(window)
+    .off("hashchange.app")
+    .on("hashchange.app", () => {
+      renderCurrentPage();
+    });
+  $(window)
+    .off("beforeunload.appLive")
+    .on("beforeunload.appLive", () => {
+      stopLiveConnection();
+    });
+};
+
+const bootstrapAppShell = () => {
+  $(APP_SELECTORS.appRoot).html(renderMainLayout());
+};
+
+const loadInitialMarketData = async () => {
+  try {
+    const coins = await fetchTopCoins();
+
+    const hydratedCoins = Object.fromEntries(
+      Object.entries(coins).map(([symbol, coin]) => {
+        const history = exchangeStore.getHistory(symbol);
+
+        if (history.length > 0) {
+          return [
+            symbol,
+            {
+              ...coin,
+              price: history[0].price,
+            },
+          ];
+        }
+
+        return [symbol, coin];
+      }),
+    );
+
+    exchangeStore.setCoins(hydratedCoins);
+    return { ok: true, error: null };
+  } catch (error) {
+    console.error("دریافت اطلاعات اولیه بازار ناموفق بود:", error);
+    return { ok: false, error };
+  }
+};
+const startLiveLayer = () => {
+  const symbols = exchangeStore.getCoinSymbols();
+
+  if (symbols.length === 0) {
+    console.warn("سمبلی برای اتصال لایو وجود ندارد.");
+    return null;
+  }
+  stopLiveConnection();
+  return initializeLivePrices(symbols);
 };
 
 $(document).ready(initApp);

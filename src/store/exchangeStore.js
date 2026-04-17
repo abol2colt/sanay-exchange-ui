@@ -1,8 +1,8 @@
-// key localstorage
+import { DEFAULT_CONNECTION_STATUS } from "../services/helpers/connectionStatusHelpers.js";
 const PRICE_HISTORY_STORAGE_KEY = "crypto_history";
-
+const WATCHLIST_STORAGE_KEY = "crypto_watchlist";
 const normalizeCoinKey = (symbol = "") => String(symbol).trim().toLowerCase();
-// read localstorage
+
 const getStoredPriceHistory = () => {
   try {
     return JSON.parse(localStorage.getItem(PRICE_HISTORY_STORAGE_KEY)) || {};
@@ -11,7 +11,28 @@ const getStoredPriceHistory = () => {
     return {};
   }
 };
-//state + method = ministore
+
+const getStoredWatchlist = () => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(WATCHLIST_STORAGE_KEY));
+    return Array.isArray(parsed) ? parsed.map(normalizeCoinKey) : [];
+  } catch (error) {
+    console.warn("خواندن واچ‌لیست از localStorage ناموفق بود.", error);
+    return [];
+  }
+};
+
+const cloneCoinsData = (coinsData = {}) => {
+  return Object.fromEntries(
+    // obj =>  array                                     ...new obj(copy)
+    Object.entries(coinsData).map(([key, value]) => [key, { ...value }]),
+  );
+};
+
+const cloneCoin = (coin = null) => {
+  return coin ? { ...coin } : null;
+};
+
 export const exchangeStore = {
   state: {
     coins: {},
@@ -20,10 +41,47 @@ export const exchangeStore = {
     lastUpdate: null,
     activeProvider: "None",
     priceHistory: getStoredPriceHistory(),
+    watchlistSymbols: getStoredWatchlist(),
+    connectionStatus: { ...DEFAULT_CONNECTION_STATUS },
+  },
+
+  setConnectionStatus(nextStatus = {}) {
+    this.state.connectionStatus = {
+      ...DEFAULT_CONNECTION_STATUS,
+      ...nextStatus,
+    };
+  },
+
+  getConnectionStatusSnapshot() {
+    return { ...this.state.connectionStatus };
   },
 
   setSearchQuery(query = "") {
-    this.state.searchQuery = String(query).trim().toLowerCase();
+    this.state.searchQuery = String(query).toLowerCase();
+  },
+
+  getSearchQuery() {
+    return this.state.searchQuery;
+  },
+
+  getHistorySnapshot(symbol) {
+    const key = normalizeCoinKey(symbol);
+    return (this.state.priceHistory[key] || []).map((item) => ({ ...item }));
+  },
+  getLastUpdate() {
+    return this.state.lastUpdate ? new Date(this.state.lastUpdate) : null;
+  },
+
+  getAllCoinsSnapshot() {
+    return Object.values(this.state.coins).map(cloneCoin);
+  },
+
+  getCoinSnapshot(symbol) {
+    return cloneCoin(this.getCoin(symbol));
+  },
+
+  getActiveProvider() {
+    return this.state.activeProvider;
   },
 
   getCoin(symbol) {
@@ -33,11 +91,12 @@ export const exchangeStore = {
   getCoinSymbols() {
     return Object.keys(this.state.coins);
   },
-  // search logic
-  getFilteredCoins() {
-    const allCoins = Object.values(this.state.coins);
 
-    if (!this.state.searchQuery) {
+  getFilteredCoins() {
+    const allCoins = this.getAllCoinsSnapshot();
+    const query = String(this.state.searchQuery || "").trim();
+
+    if (!query) {
       return allCoins;
     }
 
@@ -45,20 +104,17 @@ export const exchangeStore = {
       const coinName = String(coin.name || "").toLowerCase();
       const coinSymbol = String(coin.symbol || "").toLowerCase();
 
-      return (
-        coinName.includes(this.state.searchQuery) ||
-        coinSymbol.includes(this.state.searchQuery)
-      );
+      return coinName.includes(query) || coinSymbol.includes(query);
     });
   },
-  // data set store
+
   setCoins(coinsData = {}) {
-    this.state.coins = coinsData;
+    this.state.coins = cloneCoinsData(coinsData);
     this.state.isLoaded = true;
     this.state.lastUpdate = new Date();
     console.log("استور با ارزها آپدیت شد", this.state.coins);
   },
-  // realtime update
+
   updateCoinPrice(symbol, newPrice, change24h) {
     const coinKey = normalizeCoinKey(symbol);
     const coin = this.state.coins[coinKey];
@@ -72,7 +128,7 @@ export const exchangeStore = {
     if (change24h !== undefined) {
       coin.change24h = Number(change24h) || 0;
     }
-
+    //updated price return
     return coin;
   },
 
@@ -112,6 +168,43 @@ export const exchangeStore = {
   },
 
   getHistory(symbol) {
-    return this.state.priceHistory[normalizeCoinKey(symbol)] || [];
+    return this.getHistorySnapshot(symbol);
+  },
+
+  persistWatchlist() {
+    localStorage.setItem(
+      WATCHLIST_STORAGE_KEY,
+      JSON.stringify(this.state.watchlistSymbols),
+    );
+  },
+
+  isInWatchlist(symbol) {
+    return this.state.watchlistSymbols.includes(normalizeCoinKey(symbol));
+  },
+
+  toggleWatchlist(symbol) {
+    const coinKey = normalizeCoinKey(symbol);
+
+    if (!coinKey) {
+      return false;
+    }
+
+    const currentIndex = this.state.watchlistSymbols.indexOf(coinKey);
+
+    if (currentIndex === -1) {
+      this.state.watchlistSymbols.push(coinKey);
+      this.persistWatchlist();
+      return true;
+    }
+
+    this.state.watchlistSymbols.splice(currentIndex, 1);
+    this.persistWatchlist();
+    return false;
+  },
+
+  getWatchlistCoins() {
+    return this.state.watchlistSymbols
+      .map((symbol) => this.getCoinSnapshot(symbol))
+      .filter(Boolean);
   },
 };
