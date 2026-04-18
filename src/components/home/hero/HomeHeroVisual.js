@@ -1,3 +1,4 @@
+// Hero visual block
 export const renderHomeHeroVisual = () => {
   return `
     <div class="home-hero-visual">
@@ -26,18 +27,18 @@ export const renderHomeHeroVisual = () => {
 
           <div class="home-hero-order-card">
             <div class="home-hero-order-row">
-              <span>قدرت خرید</span>
-              <strong>$24,580</strong>
+              <span>وضعیت</span>
+              <strong>Mock Live</strong>
             </div>
 
             <div class="home-hero-order-row">
-              <span>دیده بان</span>
+              <span>واچ‌لیست</span>
               <strong>BTC / TON</strong>
             </div>
 
             <div class="home-hero-order-row">
-              <span>حالت</span>
-              <strong>نمایشی زنده</strong>
+              <span>تمرکز</span>
+              <strong>Asset Flow</strong>
             </div>
           </div>
         </div>
@@ -49,8 +50,8 @@ export const renderHomeHeroVisual = () => {
       </div>
 
       <div class="home-floating-card home-floating-card-right">
-        <span class="home-floating-label">داده</span>
-        <strong class="home-floating-value">پشتیبان‌دار</strong>
+        <span class="home-floating-label">اتصال</span>
+        <strong class="home-floating-value">Fallback</strong>
       </div>
 
       <div class="home-coin-orb home-coin-orb-btc">BTC</div>
@@ -59,4 +60,3 @@ export const renderHomeHeroVisual = () => {
     </div>
   `;
 };
-//3D-feel ==> glow، floating card device mock

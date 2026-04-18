@@ -23,7 +23,7 @@ const renderPreviewCoinCard = (coin) => {
   return `
     <a
       href="#asset/${coin.symbol}"
-      class="group home-preview-card"
+      class="group home-preview-card home-preview-card-premium"
       >
         <div>
           <h3 class="text-lg font-black">${coin.name}</h3>
@@ -78,17 +78,17 @@ export const renderHomeMarketPreviewSection = () => {
       <div class="home-section-container">
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
           <div class="home-section-copy">
-            <h2 class="home-section-title">روند بازار</h2>
-            <p class="home-section-text">
-              چهار دارایی منتخب را سریع بررسی کن و برای دیدن جزئیات کامل وارد صفحه هر ارز شو.
-            </p>
+           <h2 class="home-section-title">مرور سریع بازار</h2>
+           <p class="home-section-text">
+           چهار دارایی منتخب را در یک نگاه ببین، تغییراتشان را مرور کن و برای مشاهده جزئیات کامل وارد صفحه هر ارز شو.
+          </p>
           </div>
 
           <a
             href="#market"
             class="home-cta-secondary"
           >
-            مشاهده بازار کامل
+            مشاهده بازار 
           </a>
         </div>
 
