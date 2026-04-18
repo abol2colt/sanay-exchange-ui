@@ -267,8 +267,8 @@
   - اسکرول باید section-driven و کنترل‌شده باشد.
 - [x] Use soft snap behavior instead of aggressive scroll-jacking
   - اسکرول باید حرفه‌ای و نرم باشد، نه آزاردهنده.
-    [-] Add GSAP + ScrollTrigger foundation for home sections
-    [-] Add cleanup for home scroll triggers on route change
+    [x] Add GSAP + ScrollTrigger foundation for home sections
+    [x] Add cleanup for home scroll triggers on route change
 
 ### Section 1 — Hero
 
