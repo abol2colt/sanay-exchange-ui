@@ -3,6 +3,7 @@ import { mountWatchlistPage } from "./watchlist/WatchlistPage.js";
 import { mountAssetPage } from "./asset/AssetPage.js";
 import { mountLoginPage } from "./login/LoginPage.js";
 import { mountHomePage } from "./home/HomePage.js";
+import { cleanupHomeScrollFoundation } from "./home/homeScrollFoundation.js";
 
 const DEFAULT_ROUTE = "#home";
 const ASSET_ROUTE_PREFIX = "#asset/";
@@ -94,6 +95,8 @@ const handleNotFoundRoute = () => {
 };
 
 export const renderCurrentPage = () => {
+  cleanupHomeScrollFoundation();
+
   const route = getCurrentRoute();
 
   switch (route.page) {

@@ -263,10 +263,12 @@
   - ظاهر خانه باید شبیه محصول premium و سینمایی باشد.
 - [ ] Use a 3-section home structure
   - خانه دقیقاً سه سکشن اصلی خواهد داشت.
-- [ ] Make the home scroll section-based, not a long flat document
+- [x] Make the home scroll section-based, not a long flat document
   - اسکرول باید section-driven و کنترل‌شده باشد.
-- [ ] Use soft snap behavior instead of aggressive scroll-jacking
+- [x] Use soft snap behavior instead of aggressive scroll-jacking
   - اسکرول باید حرفه‌ای و نرم باشد، نه آزاردهنده.
+    [x] Add GSAP + ScrollTrigger foundation for home sections
+    [x] Add cleanup for home scroll triggers on route change
 
 ### Section 1 — Hero
 
@@ -296,7 +298,7 @@
   - glow و blur و اختلاف عمق باید حس premium بسازند.
 - [ ] Add tiny mouse-responsive motion in hero
   - حرکت خیلی ریز وابسته به موس برای جان‌دادن به صحنه لازم است.
-- [ ] Add hero pin + scrub scroll animation
+- [x] Add hero pin + scrub scroll animation
   - در اسکرول، hero باید کنترل‌شده و سینمایی رفتار کند.
 
 ### Section 2 — Features / Security / Trust
@@ -307,7 +309,7 @@
   - چهار کارت ویژگی اصلی در این بخش قرار بگیرد.
 - [ ] Use cards for: Security / Privacy / Live Data / Watchlist or Portfolio
   - محتوای کارت‌ها بر این چهار محور باشد.
-- [ ] Add section reveal animation on scroll
+- [x] Add section reveal animation on scroll
   - ورود این سکشن باید انیمیشن کنترل‌شده داشته باشد.
 - [ ] Add subtle metric strip or micro-summary above cards
   - یک نوار خلاصه‌ی کوچک بالای کارت‌ها حس محصولی بهتری می‌دهد.
