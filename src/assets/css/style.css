@@ -239,4 +239,10 @@
     top: 46%;
     right: -2%;
   }
+  .home-hero-copy,
+   .home-hero-device,
+   .home-floating-card,
+   .home-coin-orb {
+    will-change: transform, opacity;
+   }
 }
