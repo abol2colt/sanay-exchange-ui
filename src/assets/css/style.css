@@ -21,7 +21,7 @@
 }
 @layer components {
   .home-section-shell {
-    @apply min-h-[100svh] flex items-center px-6 py-20;
+    @apply min-h-[100svh] flex items-center px-6 py-10 md:py-12;
   }
 
   .home-section-container {
@@ -65,28 +65,13 @@
   .home-chip {
     @apply inline-flex px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-bold;
   }
-    .home-hero-section {
-    @apply relative overflow-hidden;
-  }
 
-  .home-hero-grid {
-    @apply grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-10 xl:gap-16 items-center;
+  .home-hero-section {
+    @apply relative overflow-hidden items-start min-h-[calc(100svh-84px)] pt-3 md:pt-4 lg:pt-6 pb-8 md:pb-10;
   }
 
   .home-hero-copy {
-    @apply relative z-10 max-w-3xl space-y-8;
-  }
-
-  .home-hero-title {
-    @apply text-5xl md:text-7xl xl:text-[5.5rem] font-black leading-[1.05] tracking-tight;
-  }
-
-  .home-hero-text {
-    @apply text-base md:text-lg text-gray-400 leading-8 max-w-2xl;
-  }
-
-    .home-hero-trust-row {
-    @apply flex flex-wrap gap-3 pt-1;
+    @apply z-10 max-w-3xl space-y-7 pt-1 md:pt-2;
   }
 
   .home-hero-trust-chip {
@@ -138,8 +123,8 @@
   }
 
   .home-hero-device {
-    @apply relative z-10 w-full max-w-[560px] rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl px-6 py-6;
-    transform: perspective(1600px) rotateY(-6deg) rotateX(4deg);
+   @apply relative z-10 w-full max-w-[580px] rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl px-5 py-5;
+  transform: perspective(1600px) rotateY(-4deg) rotateX(2deg);
   }
 
   .home-hero-device-top {
@@ -256,23 +241,15 @@
 
   /* Hero layout polish */
   .home-hero-grid {
-    @apply grid grid-cols-1 xl:grid-cols-[1.02fr_0.98fr] gap-10 xl:gap-16 items-center;
+    @apply grid grid-cols-1 xl:grid-cols-[1.02fr_0.98fr] gap-8 xl:gap-14 items-center;
   }
 
   .home-hero-title {
-    @apply text-5xl md:text-7xl xl:text-[5.4rem] font-black leading-[1.02] tracking-tight;
+   @apply @apply text-[3rem] md:text-[4.6rem] xl:text-[5.4rem] font-black leading-[0.94] tracking-tight text-white;
   }
 
   .home-hero-text {
-    @apply text-base md:text-lg text-gray-400 leading-8 max-w-2xl;
-  }
-
-  .home-cta-primary {
-    @apply inline-flex px-6 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-black transition-all shadow-lg;
-  }
-
-  .home-hero-metrics {
-    @apply grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2;
+    @apply text-base md:text-lg text-gray-400 leading-8 max-w-[42rem];
   }
 
   .home-hero-metric-card {
@@ -288,20 +265,7 @@
   }
 
   .home-hero-visual {
-    @apply relative min-h-[420px] lg:min-h-[560px] flex items-center justify-center;
-  }
-
-  .home-hero-device {
-    @apply relative z-10 w-full max-w-[560px] rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl px-6 py-6;
-    transform: perspective(1600px) rotateY(-6deg) rotateX(4deg);
-  }
-
-  .home-floating-card {
-    @apply hidden xl:block absolute z-20 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-xl px-4 py-3 shadow-xl;
-  }
-
-  .home-coin-orb {
-    @apply hidden lg:flex absolute z-20 w-16 h-16 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl items-center justify-center text-xs font-black text-white shadow-xl;
+    @apply relative min-h-[340px] lg:min-h-[500px] flex items-center justify-center;
   }
     /* Feature cards */
   .home-feature-card-premium {
@@ -332,5 +296,12 @@
     height: 140px;
     background: radial-gradient(circle, rgba(250, 204, 21, 0.12), transparent 65%);
     pointer-events: none;
+  }
+    .home-feature-summary-strip {
+    @apply flex flex-wrap gap-3 mb-8;
+  }
+
+  .home-feature-summary-chip {
+    @apply px-3 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-gray-300;
   }
 }

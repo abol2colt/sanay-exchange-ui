@@ -1,21 +1,22 @@
-// Hero text/copy block
+// Hero content block
 export const renderHomeHeroContent = () => {
   return `
     <div class="home-hero-copy">
-      <span class="home-chip">
-        صرافی Sanay
-      </span>
+     <div class="home-hero-brand">
+       <div class="home-hero-brand-copy">
+       </div>
+     </div>
 
       <div class="space-y-6">
         <h1 class="home-hero-title">
-          نسل جدید تجربه‌ی
+          تجربه‌ای حرفه‌ای 
           <br />
-          بازار کریپتو
+          در بازار کریپتو
         </h1>
 
         <p class="home-hero-text">
-          یک تجربه مدرن، سریع و حرفه‌ای برای دنبال‌کردن قیمت‌ها، واچ‌لیست،
-          صفحه دارایی و جریان‌های یک صرافی واقعی — بدون موتور واقعی معامله.
+          Sanay یک تجربه مدرن، سریع و حرفه‌ای شبیه صرافی واقعی می‌سازد؛
+          از بازار و واچ‌لیست تا صفحه دارایی و جریان محصول، بدون اجرای واقعی معامله.
         </p>
       </div>
 
