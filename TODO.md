@@ -256,6 +256,9 @@
 - [x] Add active navigation helper logic in `MainLayout`
 - [x] Refresh navigation active state on route change
 - [x] Fix local market badge render/import wiring
+- [x] Polish hero visual hierarchy and CTA composition
+- [x] Replace placeholder feature cards with product copy cards
+- [x] Upgrade market preview cards to premium visual treatment
 
 ### Product direction from reference video
 

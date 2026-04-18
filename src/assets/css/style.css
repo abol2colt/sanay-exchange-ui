@@ -245,4 +245,92 @@
    .home-coin-orb {
     will-change: transform, opacity;
    }
+     /* Hero trust strip */
+  .home-hero-trust-row {
+    @apply flex flex-wrap gap-3 pt-1;
+  }
+
+  .home-hero-trust-chip {
+    @apply px-3 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-gray-300;
+  }
+
+  /* Hero layout polish */
+  .home-hero-grid {
+    @apply grid grid-cols-1 xl:grid-cols-[1.02fr_0.98fr] gap-10 xl:gap-16 items-center;
+  }
+
+  .home-hero-title {
+    @apply text-5xl md:text-7xl xl:text-[5.4rem] font-black leading-[1.02] tracking-tight;
+  }
+
+  .home-hero-text {
+    @apply text-base md:text-lg text-gray-400 leading-8 max-w-2xl;
+  }
+
+  .home-cta-primary {
+    @apply inline-flex px-6 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-black transition-all shadow-lg;
+  }
+
+  .home-hero-metrics {
+    @apply grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2;
+  }
+
+  .home-hero-metric-card {
+    @apply rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4 flex flex-col gap-1;
+  }
+
+  .home-hero-metric-value {
+    @apply text-lg font-black text-white;
+  }
+
+  .home-hero-metric-label {
+    @apply text-xs text-gray-400;
+  }
+
+  .home-hero-visual {
+    @apply relative min-h-[420px] lg:min-h-[560px] flex items-center justify-center;
+  }
+
+  .home-hero-device {
+    @apply relative z-10 w-full max-w-[560px] rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl px-6 py-6;
+    transform: perspective(1600px) rotateY(-6deg) rotateX(4deg);
+  }
+
+  .home-floating-card {
+    @apply hidden xl:block absolute z-20 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-xl px-4 py-3 shadow-xl;
+  }
+
+  .home-coin-orb {
+    @apply hidden lg:flex absolute z-20 w-16 h-16 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl items-center justify-center text-xs font-black text-white shadow-xl;
+  }
+    /* Feature cards */
+  .home-feature-card-premium {
+    @apply flex flex-col gap-4 justify-between;
+  }
+
+  .home-feature-eyebrow {
+    @apply text-[11px] uppercase tracking-[0.22em] text-yellow-500 font-black;
+  }
+
+  .home-feature-title {
+    @apply text-2xl font-black text-white;
+  }
+
+  .home-feature-text {
+    @apply text-sm leading-8 text-gray-400;
+  }
+    /* Market preview cards */
+  .home-preview-card-premium {
+    @apply relative overflow-hidden shadow-xl;
+  }
+
+  .home-preview-card-premium::after {
+    content: "";
+    position: absolute;
+    inset: auto -10% -40% auto;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(250, 204, 21, 0.12), transparent 65%);
+    pointer-events: none;
+  }
 }

@@ -1,3 +1,4 @@
+// Hero text/copy block
 export const renderHomeHeroContent = () => {
   return `
     <div class="home-hero-copy">
@@ -7,37 +8,31 @@ export const renderHomeHeroContent = () => {
 
       <div class="space-y-6">
         <h1 class="home-hero-title">
-          تجربه‌ای مدرن برای
+          نسل جدید تجربه‌ی
           <br />
-          رصد و مدیریت بازار کریپتو
+          بازار کریپتو
         </h1>
 
         <p class="home-hero-text">
-          Sanay یک تجربه کامل و حرفه‌ای شبیه صرافی واقعی می‌سازد؛
-          از بازار و واچ‌لیست تا صفحه دارایی و چارت، با تمرکز روی سرعت، وضوح و طراحی سطح‌بالا.
+          یک تجربه مدرن، سریع و حرفه‌ای برای دنبال‌کردن قیمت‌ها، واچ‌لیست،
+          صفحه دارایی و جریان‌های یک صرافی واقعی — بدون موتور واقعی معامله.
         </p>
       </div>
 
       <div class="flex flex-wrap gap-4 pt-2">
-        <a
-          href="#login"
-          class="home-cta-primary"
-        >
+        <a href="#login" class="home-cta-primary">
           شروع تجربه
         </a>
 
-        <a
-          href="#market"
-          class="home-cta-secondary"
-        >
+        <a href="#market" class="home-cta-secondary">
           مشاهده بازار
         </a>
       </div>
 
       <div class="home-hero-trust-row">
-        <span class="home-hero-trust-chip">رابط مدرن</span>
         <span class="home-hero-trust-chip">داده زنده</span>
-        <span class="home-hero-trust-chip">تجربه صرافی کامل</span>
+        <span class="home-hero-trust-chip">واچ‌لیست هوشمند</span>
+        <span class="home-hero-trust-chip">رابط حرفه‌ای</span>
       </div>
 
       <div class="home-hero-metrics">
@@ -47,13 +42,13 @@ export const renderHomeHeroContent = () => {
         </div>
 
         <div class="home-hero-metric-card">
-          <span class="home-hero-metric-value">Live</span>
-          <span class="home-hero-metric-label">منبع قیمت پویا</span>
+          <span class="home-hero-metric-value">LIVE</span>
+          <span class="home-hero-metric-label">قیمت پویا</span>
         </div>
 
         <div class="home-hero-metric-card">
-          <span class="home-hero-metric-value">Mock</span>
-          <span class="home-hero-metric-label">معامله نمایشی</span>
+          <span class="home-hero-metric-value">SMART</span>
+          <span class="home-hero-metric-label">جریان محصول</span>
         </div>
       </div>
     </div>
