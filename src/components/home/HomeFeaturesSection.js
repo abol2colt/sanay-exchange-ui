@@ -1,27 +1,37 @@
-// Features / trust section
 const FEATURES = [
   {
     eyebrow: "Security",
     title: "امنیت چندلایه",
-    text: "مسیرهای اصلی محصول با تمرکز بر ساختار تمیز، وضعیت‌های اتصال روشن و کنترل بهتر state طراحی شده‌اند.",
+    text: "ساختار محصول طوری چیده شده که جریان‌ها شفاف، stateها کنترل‌شده و وضعیت اتصال همیشه قابل‌فهم بماند.",
   },
   {
     eyebrow: "Realtime",
     title: "داده زنده و fallback",
-    text: "بین Binance، Nobitex و Fake fallback داریم تا تجربه بازار حتی هنگام خطا هم از کار نیفتد.",
+    text: "بین Binance، Nobitex و Fake fallback داریم تا تجربه بازار حتی هنگام قطعی یا خطا هم متوقف نشود.",
   },
   {
     eyebrow: "Watchlist",
-    title: "رصد سریع بازار",
-    text: "کاربر می‌تواند ارزهای مهم را جدا کند و سریع‌تر به دارایی‌های مهم خودش برسد.",
+    title: "رصد سریع دارایی‌ها",
+    text: "کاربر می‌تواند ارزهای مهم را جدا کند و خیلی سریع‌تر روی market flow و asset flow خودش تمرکز کند.",
   },
   {
     eyebrow: "Asset Flow",
-    title: "جریان دارایی شفاف",
-    text: "از لیست بازار تا صفحه هر دارایی و بازشدن مودال معامله، مسیرها شفاف و قابل‌فهم نگه داشته شده‌اند.",
+    title: "جریان شفاف محصول",
+    text: "از لیست بازار تا صفحه دارایی و بازشدن مودال، مسیرها ساده، روشن و قابل‌ردیابی نگه داشته شده‌اند.",
   },
 ];
 
+const FEATURE_SUMMARY_ITEMS = ["اتصال پایدار", "State امن", "Flow شفاف"];
+
+const renderFeatureSummaryStrip = () => {
+  return `
+    <div class="home-feature-summary-strip">
+      ${FEATURE_SUMMARY_ITEMS.map(
+        (item) => `<span class="home-feature-summary-chip">${item}</span>`,
+      ).join("")}
+    </div>
+  `;
+};
 const renderFeatureCard = ({ eyebrow, title, text }) => {
   return `
     <article class="home-feature-card home-feature-card-premium">
@@ -43,7 +53,7 @@ export const renderHomeFeaturesSection = () => {
             وضوح و جریان محصول حس حرفه‌ای‌تری بدهد.
           </p>
         </div>
-
+        ${renderFeatureSummaryStrip()} 
         <div class="home-preview-grid">
           ${FEATURES.map(renderFeatureCard).join("")}
         </div>

@@ -24,7 +24,7 @@ const getStoredWatchlist = () => {
 
 const cloneCoinsData = (coinsData = {}) => {
   return Object.fromEntries(
-    // obj =>  array                                     ...new obj(copy)
+    // obj =>  array
     Object.entries(coinsData).map(([key, value]) => [key, { ...value }]),
   );
 };

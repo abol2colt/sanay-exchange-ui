@@ -259,16 +259,17 @@
 - [x] Polish hero visual hierarchy and CTA composition
 - [x] Replace placeholder feature cards with product copy cards
 - [x] Upgrade market preview cards to premium visual treatment
+- [x] Replace forced section snap with delayed desktop-only section settling
 
 ### Product direction from reference video
 
-- [ ] Build **Sanay** as a premium dark landing experience
+- [-] Build **Sanay** as a premium dark landing experience
   - ظاهر خانه باید شبیه محصول premium و سینمایی باشد.
-- [ ] Use a 3-section home structure
+- [x] Use a 3-section home structure
   - خانه دقیقاً سه سکشن اصلی خواهد داشت.
 - [x] Make the home scroll section-based, not a long flat document
   - اسکرول باید section-driven و کنترل‌شده باشد.
-- [x] Use soft snap behavior instead of aggressive scroll-jacking
+- [-] Use soft snap behavior instead of aggressive scroll-jacking
   - اسکرول باید حرفه‌ای و نرم باشد، نه آزاردهنده.
     [x] Add GSAP + ScrollTrigger foundation for home sections
     [x] Add cleanup for home scroll triggers on route change
@@ -280,58 +281,57 @@
 - [x] Localize hero copy and CTA text for Persian UI
 - [x] Add reusable hero utility classes in style.css
 - [x] Add hero trust strip and metric cards
-- [x] Improve hero responsive visual behavior
-- [ ] Create a cinematic hero section for Sanay
+- [-] Improve hero responsive visual behavior
+- [-] Create a cinematic hero section for Sanay
   - سکشن اول باید hero اصلی محصول باشد.
-- [ ] Add brand lockup for **Sanay**
+- [] Add brand lockup for **Sanay**
   - برند Sanay باید در hero هویت واضح داشته باشد.
-- [ ] Add hero headline in Persian with premium typography
+- [x] Add hero headline in Persian with premium typography
   - تیتر اصلی باید فارسی، قوی و هماهنگ با برند باشد.
-- [ ] Add supporting subheadline with trust / speed / clarity angle
+- [x] Add supporting subheadline with trust / speed / clarity angle
   - متن مکمل باید حس امنیت، سرعت و حرفه‌ای بودن بدهد.
-- [ ] Add `Start Trading` primary CTA
+- [x] Add `Start Trading` primary CTA
   - CTA اصلی hero باید کاربر را به ورود به محصول یا شروع هدایت کند.
-- [ ] Add `Explore Market` secondary CTA
+- [x] Add `Explore Market` secondary CTA
   - CTA دوم باید کاربر را به مارکت ببرد.
-- [ ] Add layered 3D-feel composition
+- [-] Add layered 3D-feel composition
   - ترکیب لایه‌ای برای حس سه‌بعدی لازم است.
-- [ ] Add floating cards / coins / UI panels around hero focal point
+- [x] Add floating cards / coins / UI panels around hero focal point
   - کارت‌ها و المان‌های شناور باید اطراف مرکز توجه قرار بگیرند.
-- [ ] Add subtle glow, blur, and parallax depth
+- [-] Add subtle glow, blur, and parallax depth
   - glow و blur و اختلاف عمق باید حس premium بسازند.
 - [ ] Add tiny mouse-responsive motion in hero
   - حرکت خیلی ریز وابسته به موس برای جان‌دادن به صحنه لازم است.
-- [x] Add hero pin + scrub scroll animation
-  - در اسکرول، hero باید کنترل‌شده و سینمایی رفتار کند.
+- [x] Add gentle hero scroll-linked motion
 
 ### Section 2 — Features / Security / Trust
 
-- [ ] Create a section focused on security, privacy, and reliability
+- [x] Create a section focused on security, privacy, and reliability
   - سکشن دوم باید حس اعتماد محصول را بسازد.
-- [ ] Add 4 premium feature cards
+- [x] Add 4 premium feature cards
   - چهار کارت ویژگی اصلی در این بخش قرار بگیرد.
 - [ ] Use cards for: Security / Privacy / Live Data / Watchlist or Portfolio
   - محتوای کارت‌ها بر این چهار محور باشد.
 - [x] Add section reveal animation on scroll
   - ورود این سکشن باید انیمیشن کنترل‌شده داشته باشد.
-- [ ] Add subtle metric strip or micro-summary above cards
+- [x] Add subtle metric strip or micro-summary above cards
   - یک نوار خلاصه‌ی کوچک بالای کارت‌ها حس محصولی بهتری می‌دهد.
-- [ ] Use the same dark premium surface language as hero
+- [x] Use the same dark premium surface language as hero
   - طراحی این سکشن باید با hero یکپارچه باشد.
 
 ### Section 3 — Market Trends / Table / CTA
 
-- [ ] Create a compact market showcase section
+- [x] Create a compact market showcase section
   - سکشن سوم باید vitrine بازار باشد، نه جایگزین market page.
-- [ ] Show 4 selected coins only
+- [x] Show 4 selected coins only
   - فقط چهار کوین منتخب در هوم نمایش داده شوند.
-- [ ] Add elegant mini trend line for each selected coin
+- [x] Add elegant mini trend line for each selected coin
   - برای هر کوین یک نمودار خطی کوچک و شیک نمایش داده شود.
-- [ ] Make each selected coin clickable to `#asset/:symbol`
+- [x] Make each selected coin clickable to `#asset/:symbol`
   - کلیک روی هر کوین باید به صفحه دارایی آن برود.
-- [ ] Add CTA to open full market page
+- [x] Add CTA to open full market page
   - این بخش باید کاربر را به مارکت کامل هم ببرد.
-- [ ] Animate section entry with controlled motion
+- [x] Animate section entry with controlled motion
   - ورود سکشن سوم هم باید انیمیشن نرم و تمیز داشته باشد.
 
 ### Home shell decisions

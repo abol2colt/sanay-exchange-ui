@@ -1,9 +1,12 @@
-import gsap from "gsap";
+import Lenis from "lenis";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 let homeScrollMatchMedia = null;
+let lenisInstance = null;
+let lenisRafId = null;
 
 const HOME_REVEAL_SELECTORS = [
   "#home-features-section .home-section-container",
@@ -16,12 +19,61 @@ export const cleanupHomeScrollFoundation = () => {
     homeScrollMatchMedia = null;
   }
 
+  if (lenisRafId) {
+    cancelAnimationFrame(lenisRafId);
+    lenisRafId = null;
+  }
+
+  if (lenisInstance) {
+    lenisInstance.destroy();
+    lenisInstance = null;
+  }
+
   ScrollTrigger.getAll().forEach((trigger) => {
     const id = String(trigger.vars.id || "");
+
     if (id.startsWith("home-")) {
       trigger.kill();
     }
   });
+};
+
+const setupDesktopLenis = () => {
+  if (window.innerWidth < 1024) {
+    return () => {};
+  }
+
+  lenisInstance = new Lenis({
+    duration: 1.05,
+    smoothWheel: true,
+    wheelMultiplier: 0.9,
+    touchMultiplier: 1,
+  });
+
+  lenisInstance.on("scroll", ScrollTrigger.update);
+
+  const raf = (time) => {
+    if (!lenisInstance) {
+      return;
+    }
+
+    lenisInstance.raf(time);
+    lenisRafId = requestAnimationFrame(raf);
+  };
+
+  lenisRafId = requestAnimationFrame(raf);
+
+  return () => {
+    if (lenisRafId) {
+      cancelAnimationFrame(lenisRafId);
+      lenisRafId = null;
+    }
+
+    if (lenisInstance) {
+      lenisInstance.destroy();
+      lenisInstance = null;
+    }
+  };
 };
 
 export const setupHomeScrollFoundation = () => {
@@ -36,7 +88,8 @@ export const setupHomeScrollFoundation = () => {
   homeScrollMatchMedia = gsap.matchMedia();
 
   homeScrollMatchMedia.add("(min-width: 1024px)", () => {
-    const heroCopy = document.querySelector(".home-hero-copy");
+    const destroyLenis = setupDesktopLenis();
+
     const heroDevice = document.querySelector(".home-hero-device");
     const floatingItems = gsap.utils.toArray(
       ".home-floating-card, .home-coin-orb",
@@ -44,35 +97,22 @@ export const setupHomeScrollFoundation = () => {
 
     const heroTimeline = gsap.timeline({
       scrollTrigger: {
-        id: "home-hero-pin",
+        id: "home-hero-flow",
         trigger: "#home-hero-section",
         start: "top top",
-        end: "+=45%",
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
+        end: "bottom top",
+        scrub: 0.7,
       },
     });
-
-    if (heroCopy) {
-      heroTimeline.to(
-        heroCopy,
-        {
-          y: -36,
-          autoAlpha: 0.92,
-        },
-        0,
-      );
-    }
 
     if (heroDevice) {
       heroTimeline.to(
         heroDevice,
         {
-          y: -18,
-          rotateY: -3,
+          y: -16,
+          rotateY: -2,
           rotateX: 2,
-          scale: 1.02,
+          scale: 1.01,
         },
         0,
       );
@@ -82,7 +122,7 @@ export const setupHomeScrollFoundation = () => {
       heroTimeline.to(
         floatingItems,
         {
-          yPercent: -10,
+          yPercent: -6,
           stagger: 0.04,
         },
         0,
@@ -91,6 +131,7 @@ export const setupHomeScrollFoundation = () => {
 
     return () => {
       heroTimeline.kill();
+      destroyLenis();
     };
   });
 
@@ -104,35 +145,22 @@ export const setupHomeScrollFoundation = () => {
     gsap.fromTo(
       element,
       {
-        y: 64,
+        y: 52,
         autoAlpha: 0,
       },
       {
         y: 0,
         autoAlpha: 1,
-        duration: 0.9,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           id: `home-reveal-${index}`,
           trigger: element,
-          start: "top 78%",
+          start: "top 84%",
           once: true,
         },
       },
     );
-  });
-
-  ScrollTrigger.create({
-    id: "home-soft-snap",
-    trigger: "#home-page",
-    start: "top top",
-    end: "bottom bottom",
-    snap: {
-      snapTo: [0, 0.5, 1],
-      duration: { min: 0.2, max: 0.6 },
-      delay: 0.08,
-      ease: "power1.inOut",
-    },
   });
 
   ScrollTrigger.refresh();
