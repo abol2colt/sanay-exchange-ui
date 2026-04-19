@@ -1,9 +1,4 @@
-export const fetchTopCoins = async () => {
-  // const coins = localStorage.getItem("crypto_history");
-  // const safecoins = coins.json.parse
-  // if (safecoins.length >= 1) {
-  //   return { coins };
-  // } else {
+export const mockDataCoins = async () => {
   return {
     btc: {
       name: "Bitcoin",

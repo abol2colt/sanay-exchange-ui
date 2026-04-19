@@ -5,8 +5,8 @@ export const createHistoryItem = (item, isUp) => {
   const colorClass = isUp ? PRICE_UP_CLASSES : PRICE_DOWN_CLASSES;
 
   return `
-    <li class="flex justify-between text-xs text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-white/5 py-2">
-      <span>${item.time}</span>
+    <li class="flex items-center justify-between py-3 border-b border-white/5 text-sm last:border-b-0">
+      <span class="text-gray-400">${item.time}</span>
       <span class="${colorClass} font-mono font-bold">$${formatPrice(item.price)}</span>
     </li>
   `;
@@ -22,29 +22,29 @@ export const renderLiveHistoryList = (historyData = []) => {
 
   return (
     html ||
-    '<li class="text-center text-xs text-gray-500 py-4">Waiting for data...</li>'
+    '<li class="text-center text-sm text-gray-500 py-6">هنوز داده زنده‌ای ثبت نشده است.</li>'
   );
 };
 
 export const renderTradeJournal = () => {
   return `
     <div class="space-y-3">
-      <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-4">
+      <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-black text-green-500">BUY</span>
-          <span class="text-xs text-gray-500 dark:text-gray-400">امروز 12:20</span>
+          <span class="text-xs font-black text-green-400">خرید</span>
+          <span class="text-xs text-gray-400">امروز 12:20</span>
         </div>
-        <p class="text-sm text-gray-700 dark:text-gray-200">خرید 0.24 BTC در قیمت 64,280$</p>
-        <p class="text-xs text-green-500 mt-2">سود فعلی: +184$</p>
+        <p class="text-sm text-gray-200">خرید 0.24 BTC در قیمت 64,280$</p>
+        <p class="text-xs text-green-400 mt-2">سود فعلی: +184$</p>
       </div>
 
-      <div class="rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-4">
+      <div class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-black text-red-500">SELL</span>
-          <span class="text-xs text-gray-500 dark:text-gray-400">دیروز 17:40</span>
+          <span class="text-xs font-black text-red-400">فروش</span>
+          <span class="text-xs text-gray-400">دیروز 17:40</span>
         </div>
-        <p class="text-sm text-gray-700 dark:text-gray-200">فروش 0.10 BTC در قیمت 66,050$</p>
-        <p class="text-xs text-green-500 mt-2">سود نهایی: +96$</p>
+        <p class="text-sm text-gray-200">فروش 0.10 BTC در قیمت 66,050$</p>
+        <p class="text-xs text-green-400 mt-2">سود نهایی: +96$</p>
       </div>
     </div>
   `;

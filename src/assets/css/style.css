@@ -43,7 +43,7 @@
   .home-surface-card,
   .home-feature-card,
   .home-preview-card {
-    @apply rounded-[2rem] border border-white/10 bg-white/5;
+   @apply rounded-[2rem] border border-gray-200 bg-white shadow-xl dark:border-white/10 dark:bg-white/5 dark:shadow-none;
   }
 
   .home-feature-card {
@@ -51,7 +51,7 @@
   }
 
   .home-preview-card {
-    @apply hover:bg-white/10 transition-all p-5 block;
+    @apply block p-5 transition-all hover:bg-gray-50 dark:hover:bg-white/10;
   }
 
   .home-preview-grid {
@@ -59,11 +59,11 @@
   }
 
   .home-cta-secondary {
-    @apply inline-flex px-6 py-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 font-bold transition-all;
+    @apply inline-flex px-6 py-4 rounded-2xl border border-gray-200 bg-white text-gray-900 hover:bg-gray-50 font-bold transition-all dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10;
   }
 
   .home-chip {
-    @apply inline-flex px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-bold;
+    @apply inline-flex px-4 py-2 rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-white;
   }
 
   .home-hero-section {
@@ -74,10 +74,6 @@
     @apply z-10 max-w-3xl space-y-7 pt-1 md:pt-2;
   }
 
-  .home-hero-trust-chip {
-    @apply px-3 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-gray-300;
-  }
-
   .home-cta-primary {
     @apply inline-flex px-6 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-black transition-all shadow-lg;
   }
@@ -86,20 +82,12 @@
     @apply grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2;
   }
 
-  .home-hero-metric-card {
-    @apply rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4 flex flex-col gap-1;
-  }
-
   .home-hero-metric-value {
-    @apply text-lg font-black text-white;
+    @apply text-lg font-black text-gray-900 dark:text-white;
   }
 
   .home-hero-metric-label {
-    @apply text-xs text-gray-400;
-  }
-
-  .home-hero-visual {
-    @apply relative min-h-[420px] lg:min-h-[560px] flex items-center justify-center;
+    @apply text-xs text-gray-500 dark:text-gray-400;
   }
 
   .home-hero-glow {
@@ -123,8 +111,8 @@
   }
 
   .home-hero-device {
-   @apply relative z-10 w-full max-w-[580px] rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl px-5 py-5;
-  transform: perspective(1600px) rotateY(-4deg) rotateX(2deg);
+   @apply relative z-10 w-full max-w-[580px] rounded-[2.5rem] border border-gray-200 bg-white/90 backdrop-blur-xl shadow-xl px-5 py-5 dark:border-white/10 dark:bg-white/5 dark:shadow-2xl;
+   transform: perspective(1600px) rotateY(-4deg) rotateX(2deg);
   }
 
   .home-hero-device-top {
@@ -136,7 +124,7 @@
   }
 
   .home-hero-device-status {
-    @apply text-xs px-3 py-1 rounded-full bg-white/10 text-gray-300;
+    @apply text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300;
   }
 
   .home-hero-device-body {
@@ -149,7 +137,7 @@
   }
 
   .home-hero-chart-header {
-    @apply flex items-center justify-between text-xs text-gray-400 mb-5;
+    @apply flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-5;
   }
 
   .home-hero-chart-line {
@@ -179,11 +167,11 @@
   }
 
   .home-hero-order-row {
-    @apply flex items-center justify-between py-3 border-b border-white/5 last:border-b-0 text-sm text-gray-300;
+    @apply flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 text-sm text-gray-600 dark:border-white/5 dark:text-gray-300;
   }
 
   .home-floating-card {
-    @apply hidden xl:block absolute z-20 rounded-[1.5rem] border border-white/10 bg-white/10 backdrop-blur-xl px-4 py-3 shadow-xl;
+    @apply hidden xl:block absolute z-20 rounded-[1.5rem] border border-gray-200 bg-white/90 backdrop-blur-xl px-4 py-3 shadow-xl dark:border-white/10 dark:bg-white/10;
   }
 
   .home-floating-card-left {
@@ -203,11 +191,11 @@
   }
 
   .home-floating-value {
-    @apply text-sm font-black text-white;
+    @apply text-sm font-black text-gray-900 dark:text-white;
   }
 
   .home-coin-orb {
-    @apply hidden lg:flex absolute z-20 w-16 h-16 rounded-full border border-white/10 bg-white/10 backdrop-blur-xl items-center justify-center text-xs font-black text-white shadow-xl;
+    @apply hidden lg:flex absolute z-20 w-16 h-16 rounded-full border border-gray-200 bg-white/90 backdrop-blur-xl items-center justify-center text-xs font-black text-gray-900 shadow-xl dark:border-white/10 dark:bg-white/10 dark:text-white;
   }
 
   .home-coin-orb-btc {
@@ -245,23 +233,15 @@
   }
 
   .home-hero-title {
-   @apply @apply text-[3rem] md:text-[4.6rem] xl:text-[5.4rem] font-black leading-[0.94] tracking-tight text-white;
-  }
-
+    @apply text-[3rem] md:text-[4.6rem] xl:text-[5.4rem] font-black leading-[0.94] tracking-tight text-gray-900 dark:text-white; 
+   }
+  
   .home-hero-text {
-    @apply text-base md:text-lg text-gray-400 leading-8 max-w-[42rem];
+    @apply text-base md:text-lg text-gray-600 dark:text-gray-400 leading-8 max-w-[42rem];
   }
 
   .home-hero-metric-card {
-    @apply rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4 flex flex-col gap-1;
-  }
-
-  .home-hero-metric-value {
-    @apply text-lg font-black text-white;
-  }
-
-  .home-hero-metric-label {
-    @apply text-xs text-gray-400;
+    @apply rounded-[1.5rem] border border-gray-200 bg-white px-5 py-4 flex flex-col gap-1 shadow-lg dark:border-white/10 dark:bg-white/5 dark:shadow-none;
   }
 
   .home-hero-visual {
@@ -277,11 +257,11 @@
   }
 
   .home-feature-title {
-    @apply text-2xl font-black text-white;
+    @apply text-2xl font-black text-gray-900 dark:text-white;
   }
 
   .home-feature-text {
-    @apply text-sm leading-8 text-gray-400;
+    @apply text-sm leading-8 text-gray-600 dark:text-gray-400;
   }
     /* Market preview cards */
   .home-preview-card-premium {
@@ -302,6 +282,53 @@
   }
 
   .home-feature-summary-chip {
-    @apply px-3 py-2 rounded-full border border-white/10 bg-white/5 text-xs text-gray-300;
+    @apply px-3 py-2 rounded-full border border-gray-200 bg-white text-xs text-gray-600 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:shadow-none;
   }
+}
+/*intro*/
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  overflow: hidden;
+  background: #000;
+  opacity: 1;
+  transition: opacity 0.85s ease;
+}
+
+.intro-splash-bg {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.intro-splash-logo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.035);
+  filter: blur(8px) brightness(0.72);
+  transition:
+    opacity 1.1s ease,
+    transform 1.4s ease,
+    filter 1.1s ease;
+}
+
+.intro-splash.is-logo-visible .intro-splash-logo {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0) brightness(1);
+}
+
+.intro-splash.is-logo-hidden .intro-splash-logo {
+  opacity: 0;
+  transform: scale(1.015);
+  filter: blur(6px) brightness(0.55);
+}
+
+.intro-splash.is-app-reveal {
+  opacity: 0;
 }

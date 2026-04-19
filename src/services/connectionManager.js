@@ -17,6 +17,64 @@ import {
 const BINANCE_TIMEOUT_MS = 5000;
 let activeLiveStatus = null;
 
+export const ConnectionManager = {
+  init: (symbols = []) => {
+    if (!Array.isArray(symbols) || symbols.length === 0) {
+      setEmptySymbolsState();
+      return setActiveLiveStatus(buildStatus("None", null, "empty_symbols"));
+    }
+    console.log("در حال تلاش برای اتصال به بایننس...");
+    setBinanceConnectingState();
+    const binanceSocket = startBinance(symbols, handleLiveTicker);
+
+    if (!binanceSocket) {
+      return startFallbackToNobitex(symbols, null);
+    }
+
+    const timeoutId = setTimeout(() => {
+      if (!isSocketOpen(binanceSocket)) {
+        startFallbackToNobitex(symbols, binanceSocket);
+      }
+    }, BINANCE_TIMEOUT_MS);
+
+    binanceSocket.onopen = () => {
+      clearTimeout(timeoutId);
+      console.log("✅ Binance WebSocket Connected");
+      setBinanceLiveState();
+    };
+
+    binanceSocket.onerror = (error) => {
+      console.error("Binance WebSocket Error:", error);
+    };
+
+    binanceSocket.onclose = (event) => {
+      console.warn("Binance WebSocket Closed:", event);
+      //TODO add feature reconnect logic
+    };
+
+    return setActiveLiveStatus(buildStatus("Binance", binanceSocket, null));
+  },
+  destroy: (liveStatus = activeLiveStatus) => {
+    const connection = liveStatus?.connection;
+
+    if (!connection) {
+      return;
+    }
+
+    if (typeof connection === "number") {
+      clearInterval(connection);
+    } else if (typeof connection.close === "function") {
+      connection.close();
+    } else if (typeof connection.disconnect === "function") {
+      connection.disconnect();
+    }
+
+    if (liveStatus === activeLiveStatus) {
+      activeLiveStatus = null;
+    }
+  },
+};
+
 const isSocketOpen = (socket) => socket && socket.readyState === WebSocket.OPEN;
 
 const buildStatus = (provider, connection, fallbackReason = null) => {
@@ -26,6 +84,7 @@ const buildStatus = (provider, connection, fallbackReason = null) => {
     fallbackReason,
   };
 };
+
 // helpers
 const handleLiveTicker = ({ symbol, price, change24h }) => {
   if (!symbol || price <= 0) {
@@ -75,62 +134,6 @@ const startFallbackToNobitex = (symbols, socket) => {
   );
 };
 
-//entry point
-export const initializeLivePrices = (symbols = []) => {
-  if (!Array.isArray(symbols) || symbols.length === 0) {
-    setEmptySymbolsState();
-    return setActiveLiveStatus(buildStatus("None", null, "empty_symbols"));
-  }
-  console.log("در حال تلاش برای اتصال به بایننس...");
-  setBinanceConnectingState();
-  const binanceSocket = startBinance(symbols, handleLiveTicker);
-
-  if (!binanceSocket) {
-    return startFallbackToNobitex(symbols, null);
-  }
-
-  const timeoutId = setTimeout(() => {
-    if (!isSocketOpen(binanceSocket)) {
-      startFallbackToNobitex(symbols, binanceSocket);
-    }
-  }, BINANCE_TIMEOUT_MS);
-
-  binanceSocket.onopen = () => {
-    clearTimeout(timeoutId);
-    console.log("✅ Binance WebSocket Connected");
-    setBinanceLiveState();
-  };
-
-  binanceSocket.onerror = (error) => {
-    console.error("Binance WebSocket Error:", error);
-  };
-
-  binanceSocket.onclose = (event) => {
-    console.warn("Binance WebSocket Closed:", event);
-    //TODO add feature reconnect logic
-  };
-
-  return setActiveLiveStatus(buildStatus("Binance", binanceSocket, null));
-};
-export const stopLiveConnection = (liveStatus = activeLiveStatus) => {
-  const connection = liveStatus?.connection;
-
-  if (!connection) {
-    return;
-  }
-
-  if (typeof connection === "number") {
-    clearInterval(connection);
-  } else if (typeof connection.close === "function") {
-    connection.close();
-  } else if (typeof connection.disconnect === "function") {
-    connection.disconnect();
-  }
-
-  if (liveStatus === activeLiveStatus) {
-    activeLiveStatus = null;
-  }
-};
 //control flow
 //handling socket/fallback
 //handling timeout/fallback
