@@ -259,7 +259,7 @@
 - [x] Polish hero visual hierarchy and CTA composition
 - [x] Replace placeholder feature cards with product copy cards
 - [x] Upgrade market preview cards to premium visual treatment
-- [x] Replace forced section snap with delayed desktop-only section settling
+- [x] Add optional welcome intro splash for Sanay before home mount
 
 ### Product direction from reference video
 
@@ -276,6 +276,8 @@
 
 ### Section 1 — Hero
 
+- [-] Support optional AI video intro asset with CSS fallback
+- [ ] Add subtle ambient hero motion layer after intro
 - [x] Split hero into content and visual components
 - [x] Create premium hero visual mock for Sanay
 - [x] Localize hero copy and CTA text for Persian UI
@@ -284,7 +286,7 @@
 - [-] Improve hero responsive visual behavior
 - [-] Create a cinematic hero section for Sanay
   - سکشن اول باید hero اصلی محصول باشد.
-- [] Add brand lockup for **Sanay**
+- [ ] Add brand lockup for **Sanay**
   - برند Sanay باید در hero هویت واضح داشته باشد.
 - [x] Add hero headline in Persian with premium typography
   - تیتر اصلی باید فارسی، قوی و هماهنگ با برند باشد.
@@ -302,7 +304,8 @@
   - glow و blur و اختلاف عمق باید حس premium بسازند.
 - [ ] Add tiny mouse-responsive motion in hero
   - حرکت خیلی ریز وابسته به موس برای جان‌دادن به صحنه لازم است.
-- [x] Add gentle hero scroll-linked motion
+- [x] Add hero pin + scrub scroll animation
+  - در اسکرول، hero باید کنترل‌شده و سینمایی رفتار کند.
 
 ### Section 2 — Features / Security / Trust
 
@@ -336,11 +339,11 @@
 
 ### Home shell decisions
 
-- [ ] Make `#home` the default first-time experience
+- [x] Make `#home` the default first-time experience
   - تجربه اولیه کاربر باید از هوم شروع شود.
 - [ ] Keep full market table in `#market` only
   - لیست کامل بازار باید فقط در market page بماند.
-- [ ] Keep connection badge out of home unless intentionally added later
+- [x] Keep connection badge out of home unless intentionally added later
   - badge اتصال فعلاً مخصوص جاهایی باشد که لیست قیمت داریم، نه home.
 - [ ] Keep home mostly storytelling + trust + selected market preview
   - هوم باید بیشتر محصول را معرفی کند تا این‌که شبیه dashboard کامل شود.
@@ -351,6 +354,9 @@
 
 ### Market page polish
 
+- [x] Fix home light-mode readability and contrast
+- [x] Unify TradingModal copy to Persian-first UI
+- [x] Align TradingModal visual system with Sanay premium design language
 - [ ] Add loading state / skeleton for market list
   - مارکت باید قبل از آماده‌شدن داده skeleton یا loading state داشته باشد.
 - [ ] Add clear-search action
@@ -363,7 +369,7 @@
   - row انتخاب‌شده یا hover باید polish بیشتری بگیرد.
 - [ ] Add trade CTA in row if product direction confirms it
   - در صورت نیاز محصولی، دکمه معامله مستقیم داخل row اضافه شود.
-- [ ] Make market page visual system match the new home design
+- [-] Make market page visual system match the new home design
   - UI مارکت باید در نهایت با هوم جدید یکپارچه شود.
 
 ### Watchlist polish
@@ -405,12 +411,14 @@
 
 - [ ] Choose final premium Persian font for Sanay
   - باید فونت نهایی برند انتخاب شود.
-- [ ] Apply consistent spacing tokens and radius scale
+- [-] Apply consistent spacing tokens and radius scale
   - spacing و radius باید سیستماتیک شوند.
-- [ ] Align dark mode surfaces across layout, pages, cards, and modal
+- [-] Align dark mode surfaces across layout, pages, cards, and modal
   - dark mode باید در کل محصول یک‌دست شود.
-- [ ] Refine shadows, glass, blur, and highlight language
+- [-] Refine shadows, glass, blur, and highlight language
   - زبان سایه، blur و glow باید استاندارد و یکپارچه شود.
+- [ ] Unify intro, home, and modal motion language
+  - زبان motion بین intro و home و modal باید هماهنگ و یک‌دست شود.
 
 ---
 
@@ -418,8 +426,10 @@
 
 ### Route and shell
 
-- [ ] Add `#login` page
-  - صفحه لاگین/ثبت‌نام باید اضافه شود.
+- [x] Add `#login` route and shell
+  - صفحه لاگین و مسیر اولیه آن ساخته شده است.
+- [ ] Implement login/signup logic
+  - منطق ثبت‌نام و ورود هنوز باید روی localStorage پیاده‌سازی شود.
 - [ ] Decide whether login is a standalone page or split panel layout
   - باید فرم لاگین از نظر layout نهایی شود.
 
@@ -509,10 +519,12 @@
 
 - [ ] Standardize naming around `render*`, `mount*`, `refresh*`, `update*`
   - naming فانکشن‌ها باید در کل پروژه یک الگوی ثابت داشته باشد.
-- [ ] Rename misleading APIs like `fetchTopCoins` if they are still mock-only
-  - نام‌هایی که حس network واقعی می‌دهند ولی mock هستند باید بازبینی شوند.
+- [x] Rename misleading mock loader APIs to match their real role
+  - نام‌هایی که حس network واقعی می‌دادند بازبینی و شفاف‌تر شده‌اند.
 - [ ] Standardize Persian vs English wording in visible UI labels
   - متن‌های UI باید از نظر زبان و tone یک‌دست شوند.
+- [ ] Continue naming cleanup for future misleading APIs
+  - هر اسم جدیدی باید از اول با نقش واقعی‌اش هماهنگ انتخاب شود.
 
 ### State and data contracts
 
@@ -700,6 +712,13 @@
 ---
 
 ## Immediate Next Focus
+
+### Confirmed next two branch targets
+
+- [-] Branch A — finalize market / asset visual alignment with the Sanay system
+  - تمرکز این برنچ روی یک‌دست‌کردن بازار و دارایی با زبان طراحی Sanay است.
+- [-] Branch B — finish font, spacing, and premium polish pass
+  - تمرکز این برنچ روی فونت، spacing tokenها و polish نهایی visual است.
 
 ### Recommended next build order
 

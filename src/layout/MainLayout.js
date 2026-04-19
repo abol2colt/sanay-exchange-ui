@@ -49,7 +49,7 @@ export const renderMainLayout = () => {
             data-nav-route="#home"
            class="${getNavLinkClasses("#home")}"
           >
-            home
+            خانه
           </a>
 
           <a
@@ -57,7 +57,7 @@ export const renderMainLayout = () => {
             data-nav-route="#market"
             class="${getNavLinkClasses("#market")}"
             >
-            Market
+            مارکت
           </a>
 
           <a
@@ -65,7 +65,7 @@ export const renderMainLayout = () => {
             data-nav-route="#watchlist"
             class="${getNavLinkClasses("#watchlist")}"
             >
-            Watchlist
+            دیده بان
           </a>
 
           <a
@@ -73,7 +73,7 @@ export const renderMainLayout = () => {
             data-nav-route="#login"
            class="${getNavLinkClasses("#login")}"
           >
-            login
+            ورود/ثبت نام
           </a>
 
           <button

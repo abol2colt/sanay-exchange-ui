@@ -3,12 +3,15 @@ import "./assets/css/style.css";
 
 import { initTheme, setupThemeListener } from "./utils/themeManager.js";
 import { exchangeStore } from "./store/exchangeStore.js";
-import { fetchTopCoins } from "./api/mockCoins.js";
+import { mockDataCoins } from "./api/mockCoins.js";
 import { APP_SELECTORS } from "./constants/selectors.js";
+import { ConnectionManager } from "./services/connectionManager.js";
 import {
-  initializeLivePrices,
-  stopLiveConnection,
-} from "./services/connectionManager.js";
+  mountIntroSplash,
+  playIntroSplashSequence,
+  revealAppFromIntro,
+} from "./components/shared/IntroSplash.js";
+import { playHomeEntranceAnimation } from "./pages/home/HomePage.js";
 
 import {
   renderMainLayout,
@@ -23,6 +26,9 @@ import { refreshMarketResults } from "./pages/market/MarketPage.js";
 
 const initApp = async () => {
   initTheme();
+  mountIntroSplash();
+  await playIntroSplashSequence();
+
   bootstrapAppShell();
   setupAppEvents();
   renderCurrentPage();
@@ -34,6 +40,14 @@ const initApp = async () => {
   if (result.ok) {
     startLiveLayer();
   }
+
+  const route = getCurrentRoute();
+
+  if (route.page === "home") {
+    playHomeEntranceAnimation();
+  }
+
+  await revealAppFromIntro();
 };
 
 const setupSearchListener = () => {
@@ -109,7 +123,7 @@ const setupAppEvents = () => {
   $(window)
     .off("beforeunload.appLive")
     .on("beforeunload.appLive", () => {
-      stopLiveConnection();
+      ConnectionManager.destroy();
     });
 };
 
@@ -120,7 +134,7 @@ const bootstrapAppShell = () => {
 
 const loadInitialMarketData = async () => {
   try {
-    const coins = await fetchTopCoins();
+    const coins = await mockDataCoins();
 
     const hydratedCoins = Object.fromEntries(
       Object.entries(coins).map(([symbol, coin]) => {
@@ -147,6 +161,7 @@ const loadInitialMarketData = async () => {
     return { ok: false, error };
   }
 };
+
 const startLiveLayer = () => {
   const symbols = exchangeStore.getCoinSymbols();
 
@@ -154,8 +169,9 @@ const startLiveLayer = () => {
     console.warn("سمبلی برای اتصال لایو وجود ندارد.");
     return null;
   }
-  stopLiveConnection();
-  return initializeLivePrices(symbols);
+
+  ConnectionManager.destroy();
+  return ConnectionManager.init(symbols);
 };
 
 $(document).ready(initApp);
